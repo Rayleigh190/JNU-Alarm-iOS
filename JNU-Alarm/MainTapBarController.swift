@@ -28,8 +28,12 @@ class MainTapBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewControllers = [historyViewController, settingViewController]
-        
+        setFirst()
     }
     
-
+    func setFirst() {
+        if UserDefaults.standard.array(forKey: "notifications") as? [String] == nil {
+            UserDefaults.standard.set([], forKey: "notifications")
+        }
+    }
 }

@@ -37,6 +37,8 @@ class SwitchTableViewCell: UITableViewCell {
         return mySwitch
     }()
     
+    var switchValueChanged: ((Bool) -> Void)?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(label)
@@ -45,10 +47,15 @@ class SwitchTableViewCell: UITableViewCell {
         iconContainer.addSubview(iconImageView)
         contentView.clipsToBounds = true
         accessoryType = .none
+        mySwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
     }
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    @objc private func switchValueChanged(_ sender: UISwitch) {
+        switchValueChanged?(sender.isOn)
     }
     
     override func layoutSubviews() {
