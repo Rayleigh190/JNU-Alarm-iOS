@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/git,macos,xcode,swift,swiftpm,cocoapods
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,macos,xcode,swift,swiftpm,cocoapods
 
+JNU-Alarm/GoogleService-Info.plist
+
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
 
