@@ -1,42 +1,15 @@
 //
-//  SettingViewController.swift
+//  CollegeViewController.swift
 //  JNU-Alarm
 //
-//  Created by 우진 on 2/14/24.
+//  Created by 우진 on 2/20/24.
 //
 
 import UIKit
 import FirebaseMessaging
 
-struct SettingsOption {
-    let title: String
-    let icon: UIImage?
-    let iconBackgroundColor: UIColor
-    let handler: (() -> Void)
-}
+class CollegeViewController: UIViewController {
 
-struct SettingsSwitchOption {
-    let title: String
-    let icon: UIImage?
-    let iconBackgroundColor: UIColor
-    let handler: (() -> Void)
-    var isOn: Bool
-    let topic: String
-}
-
-enum SettingsOptionType {
-    case staticCell(model: SettingsOption)
-    case switchCell(model: SettingsSwitchOption)
-}
-
-struct Section {
-    let title: String
-    let options: [SettingsOptionType]
-}
-
-
-class SettingViewController: UIViewController {
-    
     private let tableView: UITableView = {
         let tabelView = UITableView(frame: .zero, style: .grouped)
         tabelView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.indentifier)
@@ -57,7 +30,7 @@ class SettingViewController: UIViewController {
     }
     
     func setupNavigationController() {
-        navigationItem.title = "설정"
+        navigationItem.title = "단과대 설정"
 //        navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -83,42 +56,53 @@ class SettingViewController: UIViewController {
     }
     
     func configure() {
-        models.append(Section(title: "일반", options: [
-            .staticCell(model: SettingsOption(title: "설명", icon: UIImage(systemName: "text.quote"), iconBackgroundColor: .systemTeal) {
-                
-            }),
-            .switchCell(model: SettingsSwitchOption(title: "학교 날씨", icon: UIImage(systemName: "cloud.sun"), iconBackgroundColor: .link, handler: {
-                
-            }, isOn: getConfigData(topic: "weather"), topic: "weather")),
-            .switchCell(model: SettingsSwitchOption(title: "긴급 알림", icon: UIImage(systemName: "light.beacon.max"), iconBackgroundColor: .systemRed, handler: {
-                
-            }, isOn: getConfigData(topic: "emergency"), topic: "emergency")),
-        ]))
-        
-        models.append(Section(title: "대학", options: [
-            .switchCell(model: SettingsSwitchOption(title: "학사 알림", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
-                
-            }, isOn: getConfigData(topic: "academic"), topic: "academic")),
-            .switchCell(model: SettingsSwitchOption(title: "장학 알림", icon: UIImage(systemName: "newspaper"), iconBackgroundColor: .systemGreen, handler: {
-                
-            }, isOn: getConfigData(topic: "scholarship"), topic: "scholarship")),
-            .staticCell(model: SettingsOption(title: "단과대 알림", icon: UIImage(systemName: "building.columns"), iconBackgroundColor: .systemGreen) {
-                let vc = CollegeViewController()
-                vc.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
-            }),
-            .staticCell(model: SettingsOption(title: "학과 알림", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen) {
-                
-            }),
-        ]))
-        
-        models.append(Section(title: "기타", options: [
-            .staticCell(model: SettingsOption(title: "사업단 알림", icon: UIImage(systemName: "building.2"), iconBackgroundColor: .systemOrange) {
-                
-            }),
-            .staticCell(model: SettingsOption(title: "문의 및 제안", icon: UIImage(systemName: "person.wave.2"), iconBackgroundColor: .systemPink) {
-                
-            }),
+        models.append(Section(title: "단과대", options: [
+            .switchCell(model: SettingsSwitchOption(title: "경영대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "cba"), topic: "cba")),
+            .switchCell(model: SettingsSwitchOption(title: "공과대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "eng"), topic: "eng")),
+            .switchCell(model: SettingsSwitchOption(title: "농업생명과학대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "agric"), topic: "agric")),
+            // 여기부터 이어서 작성
+            .switchCell(model: SettingsSwitchOption(title: "사범대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "education"), topic: "education")),
+            .switchCell(model: SettingsSwitchOption(title: "사회과학대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "socsci"), topic: "socsci")),
+            .switchCell(model: SettingsSwitchOption(title: "생활과학대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "humanecology"), topic: "humanecology")),
+            .switchCell(model: SettingsSwitchOption(title: "수의과대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "vetmed"), topic: "vetmed")),
+            .switchCell(model: SettingsSwitchOption(title: "약학대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "pharmacy"), topic: "pharmacy")),
+            .switchCell(model: SettingsSwitchOption(title: "예술대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "arts"), topic: "arts")),
+            .switchCell(model: SettingsSwitchOption(title: "인문대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "human"), topic: "human")),
+            .switchCell(model: SettingsSwitchOption(title: "자연과학대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "natural"), topic: "natural")),
+            .switchCell(model: SettingsSwitchOption(title: "AI융합대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "cvg"), topic: "cvg")),
+            .switchCell(model: SettingsSwitchOption(title: "공학대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "engc"), topic: "engc")),
+            .switchCell(model: SettingsSwitchOption(title: "문화사회과학대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "yculture"), topic: "yculture")),
+            .switchCell(model: SettingsSwitchOption(title: "수산해양대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "sea"), topic: "sea")),
         ]))
     }
     
@@ -143,11 +127,11 @@ class SettingViewController: UIViewController {
     }
 }
 
-extension SettingViewController: UITableViewDelegate {
+extension CollegeViewController: UITableViewDelegate {
     
 }
 
-extension SettingViewController: UITableViewDataSource {
+extension CollegeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = models[indexPath.section].options[indexPath.row]
         
