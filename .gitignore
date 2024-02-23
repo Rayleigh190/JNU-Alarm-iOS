@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,macos,xcode,swift,swiftpm,cocoapods
 
 JNU-Alarm/GoogleService-Info.plist
+JNU-Alarm/Secrets.plist
 
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
