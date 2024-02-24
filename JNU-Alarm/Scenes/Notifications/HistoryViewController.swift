@@ -25,10 +25,18 @@ class HistoryViewController: UIViewController {
     
     var models = [NotificationData]()
     
-    private let tableView: UITableView = {
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(setNotificationData), for: .valueChanged)
+        
+        return refreshControl
+    }()
+    
+    private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: HistoryTableViewCell.indentifier)
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.refreshControl = refreshControl
         return tableView
     }()
     
@@ -38,7 +46,6 @@ class HistoryViewController: UIViewController {
         setupSubViews()
         tableView.delegate = self
         tableView.dataSource = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,7 +70,7 @@ extension HistoryViewController {
         ])
     }
     
-    func setNotificationData() {
+    @objc func setNotificationData() {
         self.models = [NotificationData]()
         
         fetchNotifications { [weak self] notifications in
@@ -76,6 +83,7 @@ extension HistoryViewController {
                 }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.refreshControl.endRefreshing()
                 }
             } else {
                 print("알림 가져오기 실패")
