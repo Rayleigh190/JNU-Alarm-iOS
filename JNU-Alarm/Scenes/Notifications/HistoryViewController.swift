@@ -46,6 +46,7 @@ class HistoryViewController: UIViewController {
         setupSubViews()
         tableView.delegate = self
         tableView.dataSource = self
+        NotificationCenter.default.addObserver(self, selector: #selector(setNotificationData), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
