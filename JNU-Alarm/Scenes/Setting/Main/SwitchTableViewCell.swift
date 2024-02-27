@@ -87,6 +87,7 @@ class SwitchTableViewCell: UITableViewCell {
         label.text = nil
         iconContainer.backgroundColor = nil
         mySwitch.isOn = false
+        mySwitch.isEnabled = true
     }
     
     public func configure(with model: SettingsSwitchOption) {
@@ -94,7 +95,8 @@ class SwitchTableViewCell: UITableViewCell {
         iconImageView.image = model.icon
         iconContainer.backgroundColor = model.iconBackgroundColor
         mySwitch.isOn = model.isOn
-        if model.title == "기본 알림" {
+        if !model.isEnabled {
+            print(model.title)
             mySwitch.isEnabled = false
         }
     }

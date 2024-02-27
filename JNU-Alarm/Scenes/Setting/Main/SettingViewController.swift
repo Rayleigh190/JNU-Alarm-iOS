@@ -22,6 +22,7 @@ struct SettingsSwitchOption {
     let handler: (() -> Void)
     var isOn: Bool
     let topic: String
+    var isEnabled = true
 }
 
 enum SettingsOptionType {
@@ -91,7 +92,7 @@ class SettingViewController: UIViewController {
         models.append(Section(title: "일반", options: [
             .switchCell(model: SettingsSwitchOption(title: "기본 알림", icon: UIImage(systemName: "info.bubble"), iconBackgroundColor: .systemTeal, handler: {
                 
-            }, isOn: true, topic: "basic")),
+            }, isOn: true, topic: "basic", isEnabled: false)),
             .switchCell(model: SettingsSwitchOption(title: "학교 날씨", icon: UIImage(systemName: "cloud.sun"), iconBackgroundColor: .link, handler: {
                 
             }, isOn: getConfigData(topic: "weather"), topic: "weather")),
@@ -190,6 +191,8 @@ extension SettingViewController: UITableViewDataSource {
                     self.unSubscribeFcmTopic(topic: model.topic)
                 }
                 self.setConfigData(isOn: isOn, topic: model.topic)
+                self.models.removeAll()
+                self.configure()
             }
             return cell
         }

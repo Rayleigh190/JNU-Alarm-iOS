@@ -122,6 +122,8 @@ extension BusinessViewController: UITableViewDataSource {
                     self.unSubscribeFcmTopic(topic: model.topic)
                 }
                 self.setConfigData(isOn: isOn, topic: model.topic)
+                self.models.removeAll()
+                self.configure()
             }
             return cell
         }

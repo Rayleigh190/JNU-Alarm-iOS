@@ -85,6 +85,9 @@ class CollegeViewController: UIViewController {
             .switchCell(model: SettingsSwitchOption(title: "예술대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "arts"), topic: "arts")),
+            .switchCell(model: SettingsSwitchOption(title: "의과대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: getConfigData(topic: "medicine"), topic: "medicine", isEnabled: false)),
             .switchCell(model: SettingsSwitchOption(title: "인문대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "human"), topic: "human")),
@@ -162,6 +165,8 @@ extension CollegeViewController: UITableViewDataSource {
                     self.unSubscribeFcmTopic(topic: model.topic)
                 }
                 self.setConfigData(isOn: isOn, topic: model.topic)
+                self.models.removeAll()
+                self.configure()
             }
             return cell
         }
