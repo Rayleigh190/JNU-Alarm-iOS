@@ -94,5 +94,8 @@ class SwitchTableViewCell: UITableViewCell {
         iconImageView.image = model.icon
         iconContainer.backgroundColor = model.iconBackgroundColor
         mySwitch.isOn = model.isOn
+        if model.title == "기본 알림" {
+            mySwitch.isEnabled = false
+        }
     }
 }

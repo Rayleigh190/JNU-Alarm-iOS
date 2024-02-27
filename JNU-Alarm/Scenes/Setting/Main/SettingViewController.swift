@@ -54,6 +54,11 @@ class SettingViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.bounds
+        
+        // 기본 topic 구독
+        if UserDefaults.standard.bool(forKey: "basic") {
+            subscribeFcmTopic(topic: "basic")
+        }
     }
     
     func setupNavigationController() {
@@ -84,15 +89,18 @@ class SettingViewController: UIViewController {
     
     func configure() {
         models.append(Section(title: "일반", options: [
-            .staticCell(model: SettingsOption(title: "설명", icon: UIImage(systemName: "text.quote"), iconBackgroundColor: .systemTeal) {
+            .switchCell(model: SettingsSwitchOption(title: "기본 알림", icon: UIImage(systemName: "info.bubble"), iconBackgroundColor: .systemTeal, handler: {
                 
-            }),
+            }, isOn: true, topic: "basic")),
             .switchCell(model: SettingsSwitchOption(title: "학교 날씨", icon: UIImage(systemName: "cloud.sun"), iconBackgroundColor: .link, handler: {
                 
             }, isOn: getConfigData(topic: "weather"), topic: "weather")),
             .switchCell(model: SettingsSwitchOption(title: "긴급 알림", icon: UIImage(systemName: "light.beacon.max"), iconBackgroundColor: .systemRed, handler: {
                 
             }, isOn: getConfigData(topic: "emergency"), topic: "emergency")),
+            .switchCell(model: SettingsSwitchOption(title: "홍보/마케팅", icon: UIImage(systemName: "giftcard"), iconBackgroundColor: .purple, handler: {
+                
+            }, isOn: getConfigData(topic: "ad"), topic: "ad")),
         ]))
         
         models.append(Section(title: "대학", options: [
