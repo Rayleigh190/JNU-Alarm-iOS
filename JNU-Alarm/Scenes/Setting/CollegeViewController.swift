@@ -86,7 +86,7 @@ class CollegeViewController: UIViewController {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "arts"), topic: "arts")),
             .switchCell(model: SettingsSwitchOption(title: "의과대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
-                // 핸들러 구현
+                Alert.showAlert(title: "안내", message: "서비스 준비중입니다.")
             }, isOn: getConfigData(topic: "medicine"), topic: "medicine", isEnabled: false)),
             .switchCell(model: SettingsSwitchOption(title: "인문대학", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현

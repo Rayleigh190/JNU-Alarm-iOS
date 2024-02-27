@@ -96,7 +96,6 @@ class SwitchTableViewCell: UITableViewCell {
         iconContainer.backgroundColor = model.iconBackgroundColor
         mySwitch.isOn = model.isOn
         if !model.isEnabled {
-            print(model.title)
             mySwitch.isEnabled = false
         }
     }

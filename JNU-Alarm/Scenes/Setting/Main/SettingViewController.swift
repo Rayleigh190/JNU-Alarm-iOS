@@ -91,25 +91,25 @@ class SettingViewController: UIViewController {
     func configure() {
         models.append(Section(title: "일반", options: [
             .switchCell(model: SettingsSwitchOption(title: "기본 알림", icon: UIImage(systemName: "info.bubble"), iconBackgroundColor: .systemTeal, handler: {
-                
+                Alert.showAlert(title: "안내", message: "기본으로 제공되는 알림입니다.")
             }, isOn: true, topic: "basic", isEnabled: false)),
             .switchCell(model: SettingsSwitchOption(title: "학교 날씨", icon: UIImage(systemName: "cloud.sun"), iconBackgroundColor: .link, handler: {
-                
+                Alert.showAlert(title: "안내", message: "매일 7시 30분에 그날 학교 날씨를 알려드립니다.")
             }, isOn: getConfigData(topic: "weather"), topic: "weather")),
             .switchCell(model: SettingsSwitchOption(title: "긴급 알림", icon: UIImage(systemName: "light.beacon.max"), iconBackgroundColor: .systemRed, handler: {
-                
+                Alert.showAlert(title: "안내", message: "교내에서 발생하는 긴급한 상황을 알려드립니다.(안전/재난)")
             }, isOn: getConfigData(topic: "emergency"), topic: "emergency")),
-            .switchCell(model: SettingsSwitchOption(title: "홍보/마케팅", icon: UIImage(systemName: "giftcard"), iconBackgroundColor: .purple, handler: {
-                
+            .switchCell(model: SettingsSwitchOption(title: "홍보/광고", icon: UIImage(systemName: "giftcard"), iconBackgroundColor: .purple, handler: {
+                Alert.showAlert(title: "안내", message: "홍보, 광고 알림입니다.")
             }, isOn: getConfigData(topic: "ad"), topic: "ad")),
         ]))
         
         models.append(Section(title: "대학", options: [
             .switchCell(model: SettingsSwitchOption(title: "학사 알림", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
-                
+                Alert.showAlert(title: "안내", message: "홈페이지 학사 게시판의 새 게시물을 알려드립니다.")
             }, isOn: getConfigData(topic: "academic"), topic: "academic")),
             .switchCell(model: SettingsSwitchOption(title: "장학 알림", icon: UIImage(systemName: "newspaper"), iconBackgroundColor: .systemGreen, handler: {
-                
+                Alert.showAlert(title: "안내", message: "홈페이지 장학 게시판의 새 게시물을 알려드립니다.")
             }, isOn: getConfigData(topic: "scholarship"), topic: "scholarship")),
             .staticCell(model: SettingsOption(title: "단과대 알림", icon: UIImage(systemName: "building.columns"), iconBackgroundColor: .systemGreen) {
                 let vc = CollegeViewController()
