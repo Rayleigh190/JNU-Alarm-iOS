@@ -160,14 +160,17 @@ extension HistoryViewController: UITableViewDelegate {
 extension HistoryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = models[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: HistoryTableViewCell.indentifier,
             for: indexPath
         ) as? HistoryTableViewCell else {
             return UITableViewCell()
         }
-        cell.configure(title: model.title, body: model.body)
+        
+        if models.count > 0 {
+            let model = models[indexPath.row]
+            cell.configure(title: model.title, body: model.body)
+        }
         return cell
     }
     
