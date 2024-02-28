@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Register for remote notifications. This shows a permission dialog on first run, to
         // show the dialog at a more appropriate time move this registration accordingly.
         // [START register_for_notifications]
-
+        
         UNUserNotificationCenter.current().delegate = self
 
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           options: authOptions,
           completionHandler: { _, _ in }
         )
-
+        
         application.registerForRemoteNotifications()
 
         // [END register_for_notifications]
@@ -63,6 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        let userInfo = notification.request.content.userInfo
+        debugPrint(userInfo)
+        return [.banner, .badge, .sound]
+    }
 }
 
 extension AppDelegate: MessagingDelegate {

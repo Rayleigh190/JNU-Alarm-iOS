@@ -57,8 +57,9 @@ class SettingViewController: UIViewController {
         tableView.frame = view.bounds
         
         // 기본 topic 구독
-        if UserDefaults.standard.bool(forKey: "basic") {
+        if !UserDefaults.standard.bool(forKey: "basic") {
             subscribeFcmTopic(topic: "basic")
+            setConfigData(isOn: true, topic: "basic")
         }
     }
     
