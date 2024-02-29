@@ -131,7 +131,9 @@ class SettingViewController: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }),
             .staticCell(model: SettingsOption(title: "문의 및 제안", icon: UIImage(systemName: "person.wave.2"), iconBackgroundColor: .systemPink) {
-                
+                let vc = ContactViewController()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
             }),
         ]))
     }
