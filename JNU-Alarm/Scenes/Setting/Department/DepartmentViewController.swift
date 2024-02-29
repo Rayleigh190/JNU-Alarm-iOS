@@ -57,7 +57,7 @@ class DepartmentViewController: UIViewController {
     }
     
     func configure() {
-        models.append(Section(title: "간호대학", options: [
+        models.append(Section(title: "각 학과 홈페이지에 새 공지사항이 올라오면 알려드립니다.\n\n간호대학", options: [
             .switchCell(model: SettingsSwitchOption(title: "간호학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "nursing"), topic: "nursing")),
@@ -214,235 +214,235 @@ class DepartmentViewController: UIViewController {
         ]))
 
         models.append(Section(title: "사회과학대학", options: [
-            .switchCell(model: SettingsSwitchOption(title: "정치외교학과", icon: UIImage(systemName: "person.3"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "정치외교학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "politics"), topic: "politics")),
-            .switchCell(model: SettingsSwitchOption(title: "사회학과", icon: UIImage(systemName: "person.3"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "사회학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "sociology"), topic: "sociology")),
-            .switchCell(model: SettingsSwitchOption(title: "심리학과", icon: UIImage(systemName: "person.3"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "심리학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "psyche"), topic: "psyche")),
-            .switchCell(model: SettingsSwitchOption(title: "문헌정보학과", icon: UIImage(systemName: "person.3"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "문헌정보학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 Alert.showAlert(title: "안내", message: "서비스 준비중입니다.")
             }, isOn: getConfigData(topic: "list"), topic: "list", isEnabled: false)),
-            .switchCell(model: SettingsSwitchOption(title: "신문방송학과", icon: UIImage(systemName: "person.3"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "신문방송학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "comm"), topic: "comm")),
-            .switchCell(model: SettingsSwitchOption(title: "지리학과", icon: UIImage(systemName: "person.3"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "지리학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "geo"), topic: "geo")),
-            .switchCell(model: SettingsSwitchOption(title: "문화인류고고학과", icon: UIImage(systemName: "person.3"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "문화인류고고학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "illyu"), topic: "illyu")),
-            .switchCell(model: SettingsSwitchOption(title: "행정학과", icon: UIImage(systemName: "person.3"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "행정학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "jnupa"), topic: "jnupa")),
         ]))
 
 
         models.append(Section(title: "생활과학대학", options: [
-            .switchCell(model: SettingsSwitchOption(title: "생활복지학과", icon: UIImage(systemName: "house"), iconBackgroundColor: .systemOrange, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "생활복지학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "welfare"), topic: "welfare")),
-            .switchCell(model: SettingsSwitchOption(title: "식품영양과학부", icon: UIImage(systemName: "house"), iconBackgroundColor: .systemOrange, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "식품영양과학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "fn"), topic: "fn")),
-            .switchCell(model: SettingsSwitchOption(title: "의류학과", icon: UIImage(systemName: "house"), iconBackgroundColor: .systemOrange, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "의류학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "clothing"), topic: "clothing")),
         ]))
 
 
         models.append(Section(title: "예술대학", options: [
-            .switchCell(model: SettingsSwitchOption(title: "미술학과", icon: UIImage(systemName: "paintpalette"), iconBackgroundColor: .systemPurple, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "미술학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "fineart"), topic: "fineart")),
-            .switchCell(model: SettingsSwitchOption(title: "음악학과", icon: UIImage(systemName: "music.note"), iconBackgroundColor: .systemPurple, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "음악학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "music"), topic: "music")),
-            .switchCell(model: SettingsSwitchOption(title: "국악학과", icon: UIImage(systemName: "music.note"), iconBackgroundColor: .systemPurple, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "국악학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "koreanmusic"), topic: "koreanmusic")),
-            .switchCell(model: SettingsSwitchOption(title: "디자인학과", icon: UIImage(systemName: "square.and.pencil"), iconBackgroundColor: .systemPurple, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "디자인학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "design"), topic: "design")),
         ]))
 
         models.append(Section(title: "인문대학", options: [
-            .switchCell(model: SettingsSwitchOption(title: "국어국문학과", icon: UIImage(systemName: "book"), iconBackgroundColor: .systemGreen, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "국어국문학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "korean"), topic: "korean")),
-            .switchCell(model: SettingsSwitchOption(title: "영어영문학과", icon: UIImage(systemName: "book"), iconBackgroundColor: .systemGreen, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "영어영문학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "ell"), topic: "ell")),
-            .switchCell(model: SettingsSwitchOption(title: "독일언어문학과", icon: UIImage(systemName: "book"), iconBackgroundColor: .systemGreen, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "독일언어문학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "german"), topic: "german")),
-            .switchCell(model: SettingsSwitchOption(title: "불어불문학과", icon: UIImage(systemName: "book"), iconBackgroundColor: .systemGreen, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "불어불문학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "french"), topic: "french")),
-            .switchCell(model: SettingsSwitchOption(title: "중어중문학과", icon: UIImage(systemName: "book"), iconBackgroundColor: .systemGreen, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "중어중문학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "china"), topic: "china")),
-            .switchCell(model: SettingsSwitchOption(title: "일어일문학과", icon: UIImage(systemName: "book"), iconBackgroundColor: .systemGreen, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "일어일문학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "nihon"), topic: "nihon")),
-            .switchCell(model: SettingsSwitchOption(title: "사학과", icon: UIImage(systemName: "book"), iconBackgroundColor: .systemGreen, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "사학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "history"), topic: "history")),
-            .switchCell(model: SettingsSwitchOption(title: "철학과", icon: UIImage(systemName: "book"), iconBackgroundColor: .systemGreen, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "철학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "philos"), topic: "philos")),
         ]))
 
 
         models.append(Section(title: "자연과학대학", options: [
-            .switchCell(model: SettingsSwitchOption(title: "수학과", icon: UIImage(systemName: "pencil.and.outline"), iconBackgroundColor: .systemRed, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "수학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "math"), topic: "math")),
-            .switchCell(model: SettingsSwitchOption(title: "통계학과", icon: UIImage(systemName: "pencil.and.outline"), iconBackgroundColor: .systemRed, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "통계학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "stat"), topic: "stat")),
-            .switchCell(model: SettingsSwitchOption(title: "물리학과", icon: UIImage(systemName: "pencil.and.outline"), iconBackgroundColor: .systemRed, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "물리학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "physics"), topic: "physics")),
-            .switchCell(model: SettingsSwitchOption(title: "지질환경전공", icon: UIImage(systemName: "pencil.and.outline"), iconBackgroundColor: .systemRed, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "지질환경전공", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "geology"), topic: "geology")),
-            .switchCell(model: SettingsSwitchOption(title: "해양환경전공", icon: UIImage(systemName: "pencil.and.outline"), iconBackgroundColor: .systemRed, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "해양환경전공", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "oceanography"), topic: "oceanography")),
-            .switchCell(model: SettingsSwitchOption(title: "화학과", icon: UIImage(systemName: "pencil.and.outline"), iconBackgroundColor: .systemRed, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "화학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "chem"), topic: "chem")),
-            .switchCell(model: SettingsSwitchOption(title: "생물학과", icon: UIImage(systemName: "pencil.and.outline"), iconBackgroundColor: .systemRed, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "생물학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "biology"), topic: "biology")),
-            .switchCell(model: SettingsSwitchOption(title: "생명과학기술학부", icon: UIImage(systemName: "pencil.and.outline"), iconBackgroundColor: .systemRed, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "생명과학기술학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "sbst"), topic: "sbst")),
         ]))
 
         models.append(Section(title: "AI융합대학", options: [
-            .switchCell(model: SettingsSwitchOption(title: "인공지능학부", icon: UIImage(systemName: "gear"), iconBackgroundColor: .systemOrange, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "인공지능학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "aisw"), topic: "aisw")),
-            .switchCell(model: SettingsSwitchOption(title: "빅데이터융합학과", icon: UIImage(systemName: "gear"), iconBackgroundColor: .systemOrange, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "빅데이터융합학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "bigdata"), topic: "bigdata")),
-            .switchCell(model: SettingsSwitchOption(title: "지능형모빌리티융합학과", icon: UIImage(systemName: "gear"), iconBackgroundColor: .systemOrange, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "지능형모빌리티융합학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "imob"), topic: "imob")),
-            .switchCell(model: SettingsSwitchOption(title: "자율전공학부", icon: UIImage(systemName: "gear"), iconBackgroundColor: .systemOrange, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "자율전공학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "sdis"), topic: "sdis")),
         ]))
 
         models.append(Section(title: "공학대학", options: [
-            .switchCell(model: SettingsSwitchOption(title: "전자통신공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "전자통신공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "ece"), topic: "ece")),
-            .switchCell(model: SettingsSwitchOption(title: "전기컴퓨터공학부", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "전기컴퓨터공학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "eec"), topic: "eec")),
-            .switchCell(model: SettingsSwitchOption(title: "기계시스템공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "기계시스템공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "mechse"), topic: "mechse")),
-            .switchCell(model: SettingsSwitchOption(title: "기계설계공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "기계설계공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "mechauto"), topic: "mechauto")),
-            .switchCell(model: SettingsSwitchOption(title: "메카트로닉스공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "메카트로닉스공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "mechatronics"), topic: "mechatronics")),
-            .switchCell(model: SettingsSwitchOption(title: "냉동공조공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "냉동공조공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "refri06"), topic: "refri06")),
-            .switchCell(model: SettingsSwitchOption(title: "환경시스템공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "환경시스템공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "environ"), topic: "environ")),
-            .switchCell(model: SettingsSwitchOption(title: "융합생명공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "융합생명공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "biotech"), topic: "biotech")),
-            .switchCell(model: SettingsSwitchOption(title: "화공생명공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "화공생명공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "chemeng"), topic: "chemeng")),
-            .switchCell(model: SettingsSwitchOption(title: "건축디자인학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "건축디자인학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 Alert.showAlert(title: "안내", message: "서비스 준비중입니다.")
             }, isOn: getConfigData(topic: "adcnu"), topic: "adcnu", isEnabled: false)),
-            .switchCell(model: SettingsSwitchOption(title: "의공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "의공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 Alert.showAlert(title: "안내", message: "서비스 준비중입니다.")
             }, isOn: getConfigData(topic: "bme"), topic: "bme", isEnabled: false)),
-            .switchCell(model: SettingsSwitchOption(title: "핼스케어메디컬공학부", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "핼스케어메디컬공학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 Alert.showAlert(title: "안내", message: "서비스 준비중입니다.")
             }, isOn: getConfigData(topic: "hme"), topic: "hme", isEnabled: false)),
-            .switchCell(model: SettingsSwitchOption(title: "산업기술융합공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "산업기술융합공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "itce"), topic: "itce")),
-            .switchCell(model: SettingsSwitchOption(title: "석유화학소재공학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "석유화학소재공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "pcme"), topic: "pcme")),
-            .switchCell(model: SettingsSwitchOption(title: "조기취업형 계약학과", icon: UIImage(systemName: "hammer"), iconBackgroundColor: .systemBlue, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "조기취업형 계약학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "smartplant"), topic: "smartplant")),
         ]))
 
         models.append(Section(title: "문화사회과학대학", options: [
-            .switchCell(model: SettingsSwitchOption(title: "국제학부", icon: UIImage(systemName: "globe"), iconBackgroundColor: .systemPurple, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "국제학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "inter"), topic: "inter")),
-            .switchCell(model: SettingsSwitchOption(title: "물류교통학과", icon: UIImage(systemName: "globe"), iconBackgroundColor: .systemPurple, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "물류교통학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "logistics"), topic: "logistics")),
-            .switchCell(model: SettingsSwitchOption(title: "국제통상학전공", icon: UIImage(systemName: "globe"), iconBackgroundColor: .systemPurple, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "국제통상학전공", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "trade"), topic: "trade")),
-            .switchCell(model: SettingsSwitchOption(title: "글로벌비즈니스학전공", icon: UIImage(systemName: "globe"), iconBackgroundColor: .systemPurple, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "글로벌비즈니스학전공", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "dogt"), topic: "dogt")),
-            .switchCell(model: SettingsSwitchOption(title: "문화콘텐츠학부", icon: UIImage(systemName: "globe"), iconBackgroundColor: .systemPurple, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "문화콘텐츠학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "ccd"), topic: "ccd")),
-            .switchCell(model: SettingsSwitchOption(title: "문화관광경영학과", icon: UIImage(systemName: "globe"), iconBackgroundColor: .systemPurple, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "문화관광경영학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "ctm"), topic: "ctm")),
         ]))
 
         models.append(Section(title: "수산해양대학", options: [
-            .switchCell(model: SettingsSwitchOption(title: "기관시스템공학과", icon: UIImage(systemName: "ship"), iconBackgroundColor: .systemTeal, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "기관시스템공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "engineer"), topic: "engineer")),
-            .switchCell(model: SettingsSwitchOption(title: "수산생명의학과", icon: UIImage(systemName: "ship"), iconBackgroundColor: .systemTeal, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "수산생명의학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "fishpath"), topic: "fishpath")),
-            .switchCell(model: SettingsSwitchOption(title: "스마트수산자원관리학과", icon: UIImage(systemName: "ship"), iconBackgroundColor: .systemTeal, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "스마트수산자원관리학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "smartfish"), topic: "smartfish")),
-            .switchCell(model: SettingsSwitchOption(title: "양식생물학과", icon: UIImage(systemName: "ship"), iconBackgroundColor: .systemTeal, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "양식생물학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "aqua"), topic: "aqua")),
-            .switchCell(model: SettingsSwitchOption(title: "조선해양공학과", icon: UIImage(systemName: "ship"), iconBackgroundColor: .systemTeal, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "조선해양공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "oceaneng"), topic: "oceaneng")),
-            .switchCell(model: SettingsSwitchOption(title: "해양경찰학과", icon: UIImage(systemName: "ship"), iconBackgroundColor: .systemTeal, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "해양경찰학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "police"), topic: "police")),
-            .switchCell(model: SettingsSwitchOption(title: "해양바이오식품학과", icon: UIImage(systemName: "ship"), iconBackgroundColor: .systemTeal, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "해양바이오식품학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "marinefs"), topic: "marinefs")),
-            .switchCell(model: SettingsSwitchOption(title: "해양생산관리학과", icon: UIImage(systemName: "ship"), iconBackgroundColor: .systemTeal, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "해양생산관리학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "marine"), topic: "marine")),
-            .switchCell(model: SettingsSwitchOption(title: "해양융합과학과", icon: UIImage(systemName: "ship"), iconBackgroundColor: .systemTeal, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "해양융합과학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "ocean89"), topic: "ocean89")),
-            .switchCell(model: SettingsSwitchOption(title: "수산해양산업관광레저융합학과", icon: UIImage(systemName: "ship"), iconBackgroundColor: .systemTeal, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "수산해양산업관광레저융합학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "dfmitl"), topic: "dfmitl")),
         ]))
 
         models.append(Section(title: "창의융합학부", options: [
-            .switchCell(model: SettingsSwitchOption(title: "창의융합학부", icon: UIImage(systemName: "wand.and.rays"), iconBackgroundColor: .systemYellow, handler: {
+            .switchCell(model: SettingsSwitchOption(title: "창의융합학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "fcc"), topic: "fcc")),
         ]))

@@ -56,7 +56,7 @@ class BusinessViewController: UIViewController {
     }
     
     func configure() {
-        models.append(Section(title: "사업단", options: [
+        models.append(Section(title: "각 사업단 홈페이지에 새 공지사항이 올라오면 알려드립니다.", options: [
             .switchCell(model: SettingsSwitchOption(title: "소프트웨어중심대학사업단", icon: UIImage(systemName: "building.2"), iconBackgroundColor: .systemOrange, handler: {
                 // 핸들러 구현
             }, isOn: getConfigData(topic: "sojoong"), topic: "sojoong")),
