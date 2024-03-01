@@ -58,8 +58,15 @@ class SettingViewController: UIViewController {
         
         // 기본 topic 구독
         if !UserDefaults.standard.bool(forKey: "basic") {
-            subscribeFcmTopic(topic: "basic")
-            setConfigData(isOn: true, topic: "basic")
+//            setConfigData(isOn: true, topic: "basic")
+            Messaging.messaging().subscribe(toTopic: "basic") { error in
+                if let error = error {
+                    print("Error subscribe: \(error)")
+                  } else {
+                      print("Subscribed to basic topic")
+                      ConfigData.set(isOn: true, topic: "basic")
+                  }
+            }
         }
     }
     
@@ -69,26 +76,6 @@ class SettingViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func getConfigData(topic: String) -> Bool {
-        return UserDefaults.standard.bool(forKey: topic)
-    }
-    
-    func setConfigData(isOn: Bool, topic: String) {
-        UserDefaults.standard.set(isOn, forKey: topic)
-        print("\(topic)이 \(isOn)으로 설정됨.")
-        
-        guard var notiData: [String] = UserDefaults.standard.array(forKey: "notifications") as? [String] else {return}
-        
-        if isOn {
-            notiData.append(topic)
-        } else {
-            guard let idx = notiData.firstIndex(of: topic) else {return}
-            notiData.remove(at: idx)
-        }
-        UserDefaults.standard.set(notiData, forKey: "notifications")
-        print("알림 내역 설정 상태 : \(String(describing: UserDefaults.standard.array(forKey: "notifications")))")
-    }
-    
     func configure() {
         models.append(Section(title: "일반", options: [
             .switchCell(model: SettingsSwitchOption(title: "기본 알림", icon: UIImage(systemName: "info.bubble"), iconBackgroundColor: .systemTeal, handler: {
@@ -96,22 +83,22 @@ class SettingViewController: UIViewController {
             }, isOn: true, topic: "basic", isEnabled: false)),
             .switchCell(model: SettingsSwitchOption(title: "학교 날씨", icon: UIImage(systemName: "cloud.sun"), iconBackgroundColor: .link, handler: {
                 Alert.showAlert(title: "안내", message: "매일 7시 30분에 당일 학교 날씨를 알려드립니다.")
-            }, isOn: getConfigData(topic: "weather"), topic: "weather")),
+            }, isOn: ConfigData.get(topic: "weather"), topic: "weather")),
             .switchCell(model: SettingsSwitchOption(title: "긴급 알림", icon: UIImage(systemName: "light.beacon.max"), iconBackgroundColor: .systemRed, handler: {
                 Alert.showAlert(title: "안내", message: "교내에서 발생하는 긴급한 상황을 알려드립니다.(안전/재난)")
-            }, isOn: getConfigData(topic: "emergency"), topic: "emergency")),
+            }, isOn: ConfigData.get(topic: "emergency"), topic: "emergency")),
             .switchCell(model: SettingsSwitchOption(title: "홍보/광고", icon: UIImage(systemName: "giftcard"), iconBackgroundColor: .purple, handler: {
                 Alert.showAlert(title: "안내", message: "홍보, 광고 알림입니다.")
-            }, isOn: getConfigData(topic: "ad"), topic: "ad")),
+            }, isOn: ConfigData.get(topic: "ad"), topic: "ad")),
         ]))
         
         models.append(Section(title: "대학", options: [
             .switchCell(model: SettingsSwitchOption(title: "학사 알림", icon: UIImage(systemName: "graduationcap"), iconBackgroundColor: .systemGreen, handler: {
                 Alert.showAlert(title: "안내", message: "홈페이지 학사 게시판의 새 게시물을 알려드립니다.")
-            }, isOn: getConfigData(topic: "academic"), topic: "academic")),
+            }, isOn: ConfigData.get(topic: "academic"), topic: "academic")),
             .switchCell(model: SettingsSwitchOption(title: "장학 알림", icon: UIImage(systemName: "newspaper"), iconBackgroundColor: .systemGreen, handler: {
                 Alert.showAlert(title: "안내", message: "홈페이지 장학 게시판의 새 게시물을 알려드립니다.")
-            }, isOn: getConfigData(topic: "scholarship"), topic: "scholarship")),
+            }, isOn: ConfigData.get(topic: "scholarship"), topic: "scholarship")),
             .staticCell(model: SettingsOption(title: "단과대 알림", icon: UIImage(systemName: "building.columns"), iconBackgroundColor: .systemGreen) {
                 let vc = CollegeViewController()
                 vc.hidesBottomBarWhenPushed = true
@@ -136,26 +123,6 @@ class SettingViewController: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }),
         ]))
-    }
-    
-    func subscribeFcmTopic(topic: String) {
-        Messaging.messaging().subscribe(toTopic: topic) { error in
-            if let error = error {
-                print("Error subscribe: \(error)")
-              } else {
-                  print("Subscribed to \(topic) topic")
-              }
-        }
-    }
-    
-    func unSubscribeFcmTopic(topic: String) {
-        Messaging.messaging().unsubscribe(fromTopic: topic) { error in
-            if let error = error {
-                print("Error unsubscribe: \(error)")
-              } else {
-                  print("Unsubscribed to \(topic) topic")
-              }
-        }
     }
 }
 
@@ -185,17 +152,11 @@ extension SettingViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(with: model)
-            cell.switchValueChanged = { isOn in
-                if isOn {
-                    print("\(model.topic) 구독 시작")
-                    self.subscribeFcmTopic(topic: model.topic) // 또는 전달하고자 하는 다른 주제
-                } else {
-                    print("\(model.topic) 구독 취소 시작")
-                    self.unSubscribeFcmTopic(topic: model.topic)
+            cell.switchValueChanged = { sender in
+                SwitchButton.switchButtonTapped(sender: sender, topic: model.topic) {
+                    self.models.removeAll()
+                    self.configure()
                 }
-                self.setConfigData(isOn: isOn, topic: model.topic)
-                self.models.removeAll()
-                self.configure()
             }
             return cell
         }

@@ -35,55 +35,15 @@ class BusinessViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func getConfigData(topic: String) -> Bool {
-        return UserDefaults.standard.bool(forKey: topic)
-    }
-    
-    func setConfigData(isOn: Bool, topic: String) {
-        UserDefaults.standard.set(isOn, forKey: topic)
-        print("\(topic)이 \(isOn)으로 설정됨.")
-        
-        guard var notiData: [String] = UserDefaults.standard.array(forKey: "notifications") as? [String] else {return}
-        
-        if isOn {
-            notiData.append(topic)
-        } else {
-            guard let idx = notiData.firstIndex(of: topic) else {return}
-            notiData.remove(at: idx)
-        }
-        UserDefaults.standard.set(notiData, forKey: "notifications")
-        print("알림 내역 설정 상태 : \(String(describing: UserDefaults.standard.array(forKey: "notifications")))")
-    }
-    
     func configure() {
         models.append(Section(title: "각 사업단 홈페이지에 새 공지사항이 올라오면 알려드립니다.", options: [
             .switchCell(model: SettingsSwitchOption(title: "소프트웨어중심대학사업단", icon: UIImage(systemName: "building.2"), iconBackgroundColor: .systemOrange, handler: {
                 // 핸들러 구현
-            }, isOn: getConfigData(topic: "sojoong"), topic: "sojoong")),
+            }, isOn: ConfigData.get(topic: "sojoong"), topic: "sojoong")),
             .switchCell(model: SettingsSwitchOption(title: "인공지능혁신융합대학사업단", icon: UIImage(systemName: "building.2"), iconBackgroundColor: .systemOrange, handler: {
                 // 핸들러 구현
-            }, isOn: getConfigData(topic: "aicoss"), topic: "aicoss")),
+            }, isOn: ConfigData.get(topic: "aicoss"), topic: "aicoss")),
         ]))
-    }
-    
-    func subscribeFcmTopic(topic: String) {
-        Messaging.messaging().subscribe(toTopic: topic) { error in
-            if let error = error {
-                print("Error subscribe: \(error)")
-              } else {
-                  print("Subscribed to \(topic) topic")
-              }
-        }
-    }
-    
-    func unSubscribeFcmTopic(topic: String) {
-        Messaging.messaging().unsubscribe(fromTopic: topic) { error in
-            if let error = error {
-                print("Error unsubscribe: \(error)")
-              } else {
-                  print("Unsubscribed to \(topic) topic")
-              }
-        }
     }
 }
 
@@ -113,17 +73,11 @@ extension BusinessViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(with: model)
-            cell.switchValueChanged = { isOn in
-                if isOn {
-                    print("\(model.topic) 구독 시작")
-                    self.subscribeFcmTopic(topic: model.topic) // 또는 전달하고자 하는 다른 주제
-                } else {
-                    print("\(model.topic) 구독 취소 시작")
-                    self.unSubscribeFcmTopic(topic: model.topic)
+            cell.switchValueChanged = { sender in
+                SwitchButton.switchButtonTapped(sender: sender, topic: model.topic) {
+                    self.models.removeAll()
+                    self.configure()
                 }
-                self.setConfigData(isOn: isOn, topic: model.topic)
-                self.models.removeAll()
-                self.configure()
             }
             return cell
         }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseMessaging
 
 class SwitchTableViewCell: UITableViewCell {
     static let indentifier = "SwitchTableViewCell"
@@ -33,11 +34,10 @@ class SwitchTableViewCell: UITableViewCell {
     
     private let mySwitch: UISwitch = {
         let mySwitch = UISwitch()
-//        mySwitch.onTintColor = .systemBlue
         return mySwitch
     }()
     
-    var switchValueChanged: ((Bool) -> Void)?
+    var switchValueChanged: ((UISwitch) -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,7 +55,7 @@ class SwitchTableViewCell: UITableViewCell {
     }
     
     @objc private func switchValueChanged(_ sender: UISwitch) {
-        switchValueChanged?(sender.isOn)
+        switchValueChanged?(sender)
     }
     
     override func layoutSubviews() {
@@ -97,6 +97,38 @@ class SwitchTableViewCell: UITableViewCell {
         mySwitch.isOn = model.isOn
         if !model.isEnabled {
             mySwitch.isEnabled = false
+        }
+    }
+}
+
+class SwitchButton {
+    class func switchButtonTapped(sender: UISwitch, topic: String, completion: @escaping () -> ()) {
+        if sender.isOn {
+            // 주제 구독 요청
+            Messaging.messaging().subscribe(toTopic: topic) { error in
+                if let error = error {
+                    print("Error subscribe: \(error)")
+                    Alert.showAlert(title: "안내", message: "알림 구독 중 오류가 발생했습니다. 다시 시도해 주세요.")
+                    sender.setOn(false, animated: true)
+                } else {
+                  print("Subscribed to \(topic) topic")
+                  ConfigData.set(isOn: true, topic: topic)
+                }
+                completion()
+            }
+        } else {
+            // 주제 구독 취소
+            Messaging.messaging().unsubscribe(fromTopic: topic) { error in
+                if let error = error {
+                    print("Error unsubscribe: \(error)")
+                    Alert.showAlert(title: "안내", message: "알림 구독 취소 중 오류가 발생했습니다. 다시 시도해 주세요.")
+                    sender.setOn(true, animated: true)
+                  } else {
+                      print("Unsubscribed to \(topic) topic")
+                      ConfigData.set(isOn: false, topic: topic)
+                  }
+                completion()
+            }
         }
     }
 }
