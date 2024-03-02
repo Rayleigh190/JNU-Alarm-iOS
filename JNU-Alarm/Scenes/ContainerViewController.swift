@@ -48,7 +48,7 @@ class ContainerViewController: UIViewController {
 extension ContainerViewController {
     func initAdMob() {
         guard let bannerView = bannerView else { return }
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716" // test ID
+        bannerView.adUnitID = "ca-app-pub-4183402691727093/5410662598"
         bannerView.rootViewController = self
         loadAd()
     }
