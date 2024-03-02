@@ -24,16 +24,26 @@ class DepartmentViewController: UIViewController {
         super.viewDidLoad()
         configure()
         setupNavigationController()
-        view.addSubview(tableView)
+        setupSubViews()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.frame = view.bounds
     }
     
     func setupNavigationController() {
         navigationItem.title = "학과 설정"
 //        navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    func setupSubViews() {
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     func configure() {

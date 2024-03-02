@@ -78,7 +78,7 @@ extension HistoryViewController {
             guard let self = self else { return }
             
             if let notifications = notifications {
-                print("패치 완료 : \(notifications)")
+//                print("패치 완료 : \(notifications)")
                 for notification in notifications {
                     self.models.append(NotificationData(title: notification.title, body: notification.body, link: notification.link, created_at: notification.created_at))
                 }
