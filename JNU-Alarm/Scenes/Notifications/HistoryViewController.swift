@@ -100,7 +100,10 @@ extension HistoryViewController {
         // 요청할 URL을 정의합니다.
         let url = URL(string: Bundle.main.getSecret(name: "NOTIFICATIONS_API_URL"))!
         // POST할 데이터를 준비합니다.
-        let postData = ["topic": UserDefaults.standard.array(forKey: "notifications")]
+        let postData = [
+            "device_id": UIDevice.current.identifierForVendor?.uuidString ?? "00000",
+            "subscribed_topics": UserDefaults.standard.array(forKey: "notifications") ?? []
+        ] as [String : Any]
         guard let jsonData = try? JSONSerialization.data(withJSONObject: postData) else {
             print("Error: Unable to serialize JSON data")
             completion(nil)
