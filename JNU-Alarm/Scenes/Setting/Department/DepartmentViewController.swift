@@ -324,6 +324,9 @@ class DepartmentViewController: UIViewController {
             .switchCell(model: SettingsSwitchOption(title: "지능형모빌리티융합학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: ConfigData.get(topic: "imob"), topic: "imob")),
+        ]))
+        
+        models.append(Section(title: "자율전공학부", options: [
             .switchCell(model: SettingsSwitchOption(title: "자율전공학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: ConfigData.get(topic: "sdis"), topic: "sdis")),
