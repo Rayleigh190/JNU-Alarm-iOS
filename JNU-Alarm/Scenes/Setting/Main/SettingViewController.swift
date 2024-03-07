@@ -133,6 +133,15 @@ class SettingViewController: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }),
         ]))
+        
+        #if DEBUG
+            models.append(Section(title: "개발자 모드", options: [
+                .switchCell(model: SettingsSwitchOption(title: "테스트 알림", icon: UIImage(systemName: "testtube.2"), iconBackgroundColor: .cyan, handler: {
+                }, isOn: ConfigData.get(topic: "test"), topic: "test")),
+            ]))
+        #else
+            print("release mode..")
+        #endif
     }
 }
 
