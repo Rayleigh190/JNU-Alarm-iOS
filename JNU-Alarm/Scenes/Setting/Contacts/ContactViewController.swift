@@ -20,6 +20,7 @@ class ContactViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "이메일"
         textField.backgroundColor = .systemGray6
+        textField.addLeftRightPadding()
         return textField
     }()
     
@@ -27,6 +28,7 @@ class ContactViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "제목"
         textField.backgroundColor = .systemGray6
+        textField.addLeftRightPadding()
         return textField
     }()
     
