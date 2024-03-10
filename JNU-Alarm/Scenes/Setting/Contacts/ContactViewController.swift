@@ -34,9 +34,13 @@ class ContactViewController: UIViewController {
     
     private lazy var bodyTextView: UITextView = {
         let textView = UITextView()
+        textView.delegate = self
         textView.text = "내용"
+        textView.font = .systemFont(ofSize: 17)
+        textView.textColor = .lightGray
         textView.backgroundColor = .systemGray6
         textView.isScrollEnabled = false
+        textView.textContainerInset = UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0)
         return textView
     }()
     
@@ -194,5 +198,21 @@ extension ContactViewController {
             }
         }
         task.resume()
+    }
+}
+
+extension ContactViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if bodyTextView.text == "내용" {
+            bodyTextView.text = nil
+            bodyTextView.textColor = .label
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if bodyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            bodyTextView.text = "내용"
+            bodyTextView.textColor = .lightGray
+        }
     }
 }
