@@ -21,6 +21,7 @@ class ContactViewController: UIViewController {
         textField.placeholder = "이메일"
         textField.backgroundColor = .systemGray6
         textField.addLeftRightPadding()
+        textField.layer.cornerRadius = 10
         return textField
     }()
     
@@ -29,6 +30,7 @@ class ContactViewController: UIViewController {
         textField.placeholder = "제목"
         textField.backgroundColor = .systemGray6
         textField.addLeftRightPadding()
+        textField.layer.cornerRadius = 10
         return textField
     }()
     
@@ -40,7 +42,8 @@ class ContactViewController: UIViewController {
         textView.textColor = .lightGray
         textView.backgroundColor = .systemGray6
         textView.isScrollEnabled = false
-        textView.textContainerInset = UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0)
+        textView.textContainerInset = UIEdgeInsets(top: 9.0, left: 7.0, bottom: 9.0, right: 7.0)
+        textView.layer.cornerRadius = 12
         return textView
     }()
     
@@ -50,6 +53,7 @@ class ContactViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.addTarget(self, action: #selector(postQuestion), for: .touchUpInside)
+        button.layer.cornerRadius = 11
         return button
     }()
 
@@ -97,12 +101,12 @@ extension ContactViewController {
         
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            emailTextField.heightAnchor.constraint(equalToConstant: 30),
+            emailTextField.heightAnchor.constraint(equalToConstant: 38),
         ])
 
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleTextField.heightAnchor.constraint(equalToConstant: 30),
+            titleTextField.heightAnchor.constraint(equalToConstant: 38),
         ])
         
         bodyTextView.translatesAutoresizingMaskIntoConstraints = false
@@ -152,7 +156,7 @@ extension ContactViewController {
             return
         }
         
-        if titleTextField.text!.count < 1 || bodyTextView.text.count < 1 {
+        if titleTextField.text!.count < 1 || bodyTextView.text.count < 1 || bodyTextView.text == "내용"{
             Alert.showAlert(title: "안내", message: "내용을 입력하세요.")
             return
         }
@@ -192,7 +196,8 @@ extension ContactViewController {
                     Alert.showAlert(title: "안내", message: "성공적으로 제출 됐습니다.")
                     self.emailTextField.text?.removeAll()
                     self.titleTextField.text?.removeAll()
-                    self.bodyTextView.text.removeAll()
+                    self.bodyTextView.text = "내용"
+                    self.bodyTextView.textColor = .lightGray
                 }
                 
             }
