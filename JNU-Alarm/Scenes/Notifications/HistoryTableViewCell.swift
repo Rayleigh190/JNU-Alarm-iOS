@@ -12,7 +12,7 @@ class HistoryTableViewCell: UITableViewCell {
     
     private let labelStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.spacing = 10
+        stackView.spacing = 3
         stackView.axis = .vertical
         return stackView
     }()
@@ -21,13 +21,14 @@ class HistoryTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "타이틀"
         label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 20.0)
+        label.font = .systemFont(ofSize: 17, weight: .bold)
         return label
     }()
     
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.text = "바디"
+        label.font = .systemFont(ofSize: 15)
         label.numberOfLines = 0
         return label
     }()
@@ -44,7 +45,7 @@ class HistoryTableViewCell: UITableViewCell {
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             // labelStackView의 leading과 trailing constraint 설정
-            labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10), // 왼쪽 inset
+            labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 17), // 왼쪽 inset
             labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -35), // 오른쪽 inset
             labelStackView.topAnchor.constraint(equalTo:topAnchor, constant: 10),
             labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),

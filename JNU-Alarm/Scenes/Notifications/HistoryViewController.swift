@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseMessaging
+import SafariServices
 
 struct NotiResponseData: Codable {
     let success: Bool
@@ -187,10 +188,14 @@ extension HistoryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
         let model = models[indexPath.row]
-        print("Open \(model.link)")
-        if let url = URL(string: model.link) {
-            UIApplication.shared.open(url)
+        
+        if model.link.count > 0 {
+            guard let url = URL(string: model.link) else { return }
+            let safariVC = SFSafariViewController(url: url)
+            safariVC.modalPresentationStyle = .automatic
+            present(safariVC, animated: true)
         }
     }
     
