@@ -6,6 +6,11 @@
 	<true/>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-4183402691727093~8596989327</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -224,6 +229,8 @@
 	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
+		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
 </dict>
