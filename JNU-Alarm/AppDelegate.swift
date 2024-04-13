@@ -24,6 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setupFCM(_ application: UIApplication) {
         FirebaseApp.configure()
+        #if DEBUG
+        Analytics.setAnalyticsCollectionEnabled(false)
+        #else
+        Analytics.setAnalyticsCollectionEnabled(true)
+        #endif
 
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
