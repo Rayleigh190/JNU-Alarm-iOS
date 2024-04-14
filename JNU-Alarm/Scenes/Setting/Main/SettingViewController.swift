@@ -54,6 +54,7 @@ class SettingViewController: UIViewController {
         setupSubViews()
         tableView.delegate = self
         tableView.dataSource = self
+        unsubscribeLegacyTopic()
         
         // 기본 topic 구독
         if !UserDefaults.standard.bool(forKey: "basic") {
@@ -91,12 +92,6 @@ class SettingViewController: UIViewController {
             .switchCell(model: SettingsSwitchOption(title: "기본 알림", icon: UIImage(systemName: "info.bubble"), iconBackgroundColor: .systemTeal, handler: {
                 Alert.showAlert(title: "안내", message: "기본으로 제공되는 알림입니다.(서비스 공지)")
             }, isOn: true, topic: "basic", isEnabled: false)),
-            .switchCell(model: SettingsSwitchOption(title: "학교 날씨", icon: UIImage(systemName: "cloud.sun"), iconBackgroundColor: .link, handler: {
-                Alert.showAlert(title: "안내", message: "매일 7시 30분에 당일 학교 날씨를 알려드립니다.(서비스 준비중입니다.)")
-            }, isOn: ConfigData.get(topic: "weather"), topic: "weather", isEnabled: false)),
-            .switchCell(model: SettingsSwitchOption(title: "긴급 알림", icon: UIImage(systemName: "light.beacon.max"), iconBackgroundColor: .systemRed, handler: {
-                Alert.showAlert(title: "안내", message: "교내에서 발생하는 긴급한 상황을 알려드립니다.(안전/재난)")
-            }, isOn: ConfigData.get(topic: "emergency"), topic: "emergency")),
             .switchCell(model: SettingsSwitchOption(title: "홍보/광고", icon: UIImage(systemName: "giftcard"), iconBackgroundColor: .purple, handler: {
                 Alert.showAlert(title: "안내", message: "홍보, 광고 알림입니다.")
             }, isOn: ConfigData.get(topic: "ad"), topic: "ad")),
@@ -205,4 +200,24 @@ extension SettingViewController: UITableViewDataSource {
         return section.title
     }
     
+}
+
+extension SettingViewController {
+    // 서비스 종료 알림 토픽 구독 취소 처리
+    func unsubscribeLegacyTopic() {
+        let legacyTopic = ["emergency"]
+        for topic in legacyTopic {
+            if UserDefaults.standard.bool(forKey: topic) {
+                Messaging.messaging().unsubscribe(fromTopic: topic) { error in
+                    if let error = error {
+                        print("Error unsubscribe: \(error)")
+                      } else {
+                          print("Unsubscribed to \(topic) topic")
+                          ConfigData.set(isOn: false, topic: topic)
+                      }
+                }
+            }
+            
+        }
+    }
 }
