@@ -25,9 +25,15 @@ struct SettingsSwitchOption {
     var isEnabled = true
 }
 
+struct SettingStringOption {
+    let title: String
+    let handler: (() -> Void)
+}
+
 enum SettingsOptionType {
     case staticCell(model: SettingsOption)
     case switchCell(model: SettingsSwitchOption)
+    case stringCell(model: SettingStringOption)
 }
 
 struct Section {
@@ -127,6 +133,11 @@ class SettingViewController: UIViewController {
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }),
+            .staticCell(model: SettingsOption(title: "정보", icon: UIImage(systemName: "info.circle"), iconBackgroundColor: .systemBlue) {
+                let vc = InfoViewController()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }),
         ]))
         
         #if DEBUG
@@ -173,6 +184,15 @@ extension SettingViewController: UITableViewDataSource {
                 }
             }
             return cell
+        case .stringCell(let model):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: StringTableViewCell.indentifier,
+                for: indexPath
+            ) as? StringTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
         }
     }
     
@@ -191,6 +211,8 @@ extension SettingViewController: UITableViewDataSource {
         case .staticCell(let model):
             model.handler()
         case .switchCell(let model):
+            model.handler()
+        case .stringCell(let model):
             model.handler()
         }
     }

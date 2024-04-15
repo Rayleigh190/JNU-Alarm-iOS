@@ -133,6 +133,15 @@ extension CollegeViewController: UITableViewDataSource {
                 }
             }
             return cell
+        case .stringCell(let model):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: StringTableViewCell.indentifier,
+                for: indexPath
+            ) as? StringTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
         }
     }
     
@@ -152,6 +161,9 @@ extension CollegeViewController: UITableViewDataSource {
             model.handler()
         case .switchCell(let model):
             model.handler()
+        case .stringCell(model: let model):
+            model.handler()
+            
         }
     }
     

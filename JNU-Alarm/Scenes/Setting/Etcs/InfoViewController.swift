@@ -1,19 +1,18 @@
 //
-//  BusinessViewController.swift
+//  InfoViewController.swift
 //  JNU-Alarm
 //
-//  Created by 우진 on 2/21/24.
+//  Created by 우진 on 4/15/24.
 //
 
 import UIKit
-import FirebaseMessaging
+import SafariServices
 
-class BusinessViewController: UIViewController {
-
+class InfoViewController: UIViewController {
+    
     private let tableView: UITableView = {
         let tabelView = UITableView(frame: .zero, style: .grouped)
-        tabelView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.indentifier)
-        tabelView.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.indentifier)
+        tabelView.register(StringTableViewCell.self, forCellReuseIdentifier: StringTableViewCell.indentifier)
         return tabelView
     }()
     
@@ -21,15 +20,18 @@ class BusinessViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        
         configure()
         setupNavigationController()
         setupSubViews()
         tableView.delegate = self
         tableView.dataSource = self
+    
     }
     
     func setupNavigationController() {
-        navigationItem.title = "사업단 설정"
+        navigationItem.title = "정보"
 //        navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -46,22 +48,38 @@ class BusinessViewController: UIViewController {
     }
     
     func configure() {
-        models.append(Section(title: "각 사업단 홈페이지에 새 공지사항이 올라오면 알려드립니다.", options: [
-            .switchCell(model: SettingsSwitchOption(title: "소프트웨어중심대학사업단", icon: UIImage(systemName: "building.2"), iconBackgroundColor: .systemOrange, handler: {
-                // 핸들러 구현
-            }, isOn: ConfigData.get(topic: "sojoong"), topic: "sojoong")),
-            .switchCell(model: SettingsSwitchOption(title: "인공지능혁신융합대학사업단", icon: UIImage(systemName: "building.2"), iconBackgroundColor: .systemOrange, handler: {
-                // 핸들러 구현
-            }, isOn: ConfigData.get(topic: "aicoss"), topic: "aicoss")),
+        models.append(Section(title: "가나다라마바사.", options: [
+            .stringCell(model: SettingStringOption(title: "🚀 앱 버전", handler: {
+                if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                    Alert.showAlert(title: "현재 버전", message: "\(version)")
+                }
+            })),
+            .stringCell(model: SettingStringOption(title: "🎯 업데이트 내역", handler: {
+                self.showWebView(url: "https://wackitlab.notion.site/iOS-373883435fcb4dd5aada2723b0fef7e0")
+            })),
+            .stringCell(model: SettingStringOption(title: "🛡️ 개인정보 처리방침", handler: {
+                self.showWebView(url: "https://wackitlab.notion.site/d6483585330d47cf8c3927c018d9075e")
+            })),
+            .stringCell(model: SettingStringOption(title: "🏠 공식페이지", handler: {
+                self.showWebView(url: "https://wackitlab.notion.site/469d2c23433c48cca6965c3573058397")
+            })),
         ]))
     }
+    
+    func showWebView(url: String) {
+        guard let url = URL(string: url) else { return }
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.modalPresentationStyle = .automatic
+        self.present(safariVC, animated: true)
+    }
+ 
 }
 
-extension BusinessViewController: UITableViewDelegate {
+extension InfoViewController: UITableViewDelegate {
     
 }
 
-extension BusinessViewController: UITableViewDataSource {
+extension InfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = models[indexPath.section].options[indexPath.row]
         
@@ -118,14 +136,14 @@ extension BusinessViewController: UITableViewDataSource {
             model.handler()
         case .switchCell(let model):
             model.handler()
-        case .stringCell(let model):
+        case .stringCell(model: let model):
             model.handler()
         }
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let section = models[section]
-        return section.title
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        let section = models[section]
+//        return section.title
+//    }
     
 }

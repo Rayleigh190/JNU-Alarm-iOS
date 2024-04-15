@@ -474,6 +474,15 @@ extension DepartmentViewController: UITableViewDataSource {
                 }
             }
             return cell
+        case .stringCell(let model):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: StringTableViewCell.indentifier,
+                for: indexPath
+            ) as? StringTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
         }
     }
     
@@ -492,6 +501,8 @@ extension DepartmentViewController: UITableViewDataSource {
         case .staticCell(let model):
             model.handler()
         case .switchCell(let model):
+            model.handler()
+        case .stringCell(let model):
             model.handler()
         }
     }
