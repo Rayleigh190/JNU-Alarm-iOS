@@ -60,20 +60,6 @@ class SettingViewController: UIViewController {
         setupSubViews()
         tableView.delegate = self
         tableView.dataSource = self
-        unsubscribeLegacyTopic()
-        
-        // 기본 topic 구독
-        if !UserDefaults.standard.bool(forKey: "basic") {
-//            setConfigData(isOn: true, topic: "basic")
-            Messaging.messaging().subscribe(toTopic: "basic") { error in
-                if let error = error {
-                    print("Error subscribe: \(error)")
-                  } else {
-                      print("Subscribed to basic topic")
-                      ConfigData.set(isOn: true, topic: "basic")
-                  }
-            }
-        }
     }
     
     func setupNavigationController() {
@@ -222,24 +208,4 @@ extension SettingViewController: UITableViewDataSource {
         return section.title
     }
     
-}
-
-extension SettingViewController {
-    // 서비스 종료 알림 토픽 구독 취소 처리
-    func unsubscribeLegacyTopic() {
-        let legacyTopic = ["emergency"]
-        for topic in legacyTopic {
-            if UserDefaults.standard.bool(forKey: topic) {
-                Messaging.messaging().unsubscribe(fromTopic: topic) { error in
-                    if let error = error {
-                        print("Error unsubscribe: \(error)")
-                      } else {
-                          print("Unsubscribed to \(topic) topic")
-                          ConfigData.set(isOn: false, topic: topic)
-                      }
-                }
-            }
-            
-        }
-    }
 }
