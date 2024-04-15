@@ -16,9 +16,17 @@ class ContactViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "  답장이 필요한 연락이면 이메일을 남겨주시기 바랍니다."
+        label.textColor = .lightGray
+        label.font = .systemFont(ofSize: 13)
+        return label
+    }()
+    
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "이메일"
+        textField.placeholder = "이메일(선택)"
         textField.backgroundColor = .systemGray6
         textField.addLeftRightPadding()
         textField.layer.cornerRadius = 10
@@ -85,6 +93,7 @@ extension ContactViewController {
     
     func setupSubviews() {
         view.addSubview(inputStackView)
+        inputStackView.addArrangedSubview(infoLabel)
         inputStackView.addArrangedSubview(emailTextField)
         inputStackView.addArrangedSubview(titleTextField)
         inputStackView.addArrangedSubview(bodyTextView)
@@ -151,7 +160,7 @@ extension ContactViewController {
     
     @objc func postQuestion() {
         
-        if !isValidEmail(emailTextField.text!) {
+        if emailTextField.text!.count > 0 && !isValidEmail(emailTextField.text!) {
             Alert.showAlert(title: "안내", message: "이메일 형식이 잘못됐습니다.")
             return
         }
