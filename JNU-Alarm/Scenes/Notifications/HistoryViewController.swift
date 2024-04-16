@@ -26,6 +26,13 @@ class HistoryViewController: UIViewController {
     
     var models = [NotificationData]()
     
+    private lazy var infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "원하는 알림을 설정하세요!"
+        label.textColor = .gray
+        return label
+    }()
+    
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(setNotificationData), for: .valueChanged)
@@ -69,6 +76,14 @@ extension HistoryViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        view.addSubview(infoLabel)
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            // infoLabel을 수평 및 수직 중앙에 배치
+            infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            infoLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
     
@@ -131,8 +146,17 @@ extension HistoryViewController {
                     
                     // 응답 데이터에서 response 키의 값인 배열을 가져옵니다.
                     if let responseData = responseJSON?["response"] as? [[String: Any]] {
+                        // 응답 개수가 0이면 안내문구 보이도록 설정
+                        if !responseData.isEmpty {
+                            DispatchQueue.main.async {
+                                self.infoLabel.isHidden = true
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.infoLabel.isHidden = false
+                            }
+                        }
                         // 배열의 각 요소를 순회하면서 원하는 정보를 출력하거나 활용할 수 있습니다.
-                        
                         for data in responseData {
                             if let title = data["title"] as? String,
                                 let body = data["body"] as? String,
