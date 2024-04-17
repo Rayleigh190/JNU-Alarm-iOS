@@ -187,6 +187,18 @@ extension HistoryViewController: UITableViewDelegate {
 
 extension HistoryViewController: UITableViewDataSource {
     
+    func dateFormatConversion(from dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            return dateFormatter.string(from: date)
+        } else {
+            return "Invalid Date"
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: HistoryTableViewCell.indentifier,
@@ -197,7 +209,7 @@ extension HistoryViewController: UITableViewDataSource {
         
         if models.count > 0 {
             let model = models[indexPath.row]
-            cell.configure(title: model.title, body: model.body)
+            cell.configure(title: model.title, body: model.body, date: dateFormatConversion(from: model.created_at))
         }
         return cell
     }

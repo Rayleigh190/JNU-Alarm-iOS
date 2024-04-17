@@ -25,6 +25,21 @@ class HistoryTableViewCell: UITableViewCell {
         return label
     }()
     
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "2024.0.0"
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.font = .systemFont(ofSize: 13)
+        label.textColor = .lightGray
+        return label
+    }()
+    
+    private let topLabelStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        return stackView
+    }()
+    
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.text = "바디"
@@ -35,13 +50,15 @@ class HistoryTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         addSubview(labelStackView)
-        labelStackView.addArrangedSubview(titleLabel)
+        topLabelStackView.addArrangedSubview(titleLabel)
+        topLabelStackView.addArrangedSubview(dateLabel)
+        labelStackView.addArrangedSubview(topLabelStackView)
         labelStackView.addArrangedSubview(bodyLabel)
-//        contentView.addSubview(titleLabel)
-//        contentView.addSubview(bodyLabel)
+
         accessoryType = .disclosureIndicator
-//        labelStackView.frame = bounds
+        
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             // labelStackView의 leading과 trailing constraint 설정
@@ -65,11 +82,13 @@ class HistoryTableViewCell: UITableViewCell {
         super.prepareForReuse()
         titleLabel.text = nil
         bodyLabel.text = nil
+        dateLabel.text = nil
     }
     
-    public func configure(title: String, body: String) {
+    public func configure(title: String, body: String, date: String) {
         titleLabel.text = title
         bodyLabel.text = body
+        dateLabel.text = date
     }
 
 }
