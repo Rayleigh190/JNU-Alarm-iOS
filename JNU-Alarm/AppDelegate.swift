@@ -16,9 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        print("AppDelegate - didFinishLaunchingWithOptions()")
         // Override point for customization after application launch.
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         setupFCM(application)
+        NetworkMonitor.shared.startMonitoring()
         return true
     }
     
@@ -49,6 +51,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
 
         // [END register_for_notifications]
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        print("AppDelegate - applicationWillTerminate()")
+        NetworkMonitor.shared.stopMonitoring()
     }
 
     // MARK: UISceneSession Lifecycle

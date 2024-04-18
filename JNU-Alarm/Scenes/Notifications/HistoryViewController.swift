@@ -58,7 +58,13 @@ class HistoryViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setNotificationData()
+        super.viewWillAppear(animated)
+        print("HistoryViewController - viewWillAppear()")
+        if NetworkMonitor.shared.isConnected {
+            setNotificationData()
+        }else{
+            Alert.showAlertAndExit(title: "네트워크 연결 오류", message: "인터넷에 연결되어 있지 않습니다. 앱을 종료합니다.")
+        }
     }
 }
 
@@ -88,6 +94,10 @@ extension HistoryViewController {
     }
     
     @objc func setNotificationData() {
+        if !NetworkMonitor.shared.isConnected {
+            Alert.showAlertAndExit(title: "네트워크 연결 오류", message: "인터넷에 연결되어 있지 않습니다. 앱을 종료합니다.")
+        }
+        
         self.models = [NotificationData]()
         
         fetchNotifications { [weak self] notifications in

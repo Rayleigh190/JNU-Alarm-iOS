@@ -103,6 +103,12 @@ class SwitchTableViewCell: UITableViewCell {
 
 class SwitchButton {
     class func switchButtonTapped(sender: UISwitch, topic: String, completion: @escaping () -> ()) {
+        if !NetworkMonitor.shared.isConnected {
+            Alert.showAlert(title: "네트워크 연결 오류", message: "인터넷에 연결되어 있지 않습니다. 연결하고 다시 시도해 주세요.")
+            sender.setOn(!sender.isOn, animated: true)
+            return
+        }
+        
         if sender.isOn {
             // 주제 구독 요청
             Messaging.messaging().subscribe(toTopic: topic) { error in

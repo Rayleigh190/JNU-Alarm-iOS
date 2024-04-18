@@ -98,7 +98,9 @@ class AgreeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if !NetworkMonitor.shared.isConnected {
+            Alert.showAlertAndExit(title: "네트워크 연결 오류", message: "인터넷에 연결되어 있지 않습니다. 앱을 종료합니다.")
+        }
     }
 }
 

@@ -60,6 +60,21 @@ class SettingViewController: UIViewController {
         setupSubViews()
         tableView.delegate = self
         tableView.dataSource = self
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("SettingViewController - viewWillAppear()")
+        if !NetworkMonitor.shared.isConnected {
+            Alert.showAlertAndExit(title: "네트워크 연결 오류", message: "인터넷에 연결되어 있지 않습니다. 앱을 종료합니다.")
+        }
+    }
+    
+    @objc func willEnterForeground() {
+        if !NetworkMonitor.shared.isConnected {
+            Alert.showAlertAndExit(title: "네트워크 연결 오류", message: "인터넷에 연결되어 있지 않습니다. 앱을 종료합니다.")
+        }
     }
     
     func setupNavigationController() {
