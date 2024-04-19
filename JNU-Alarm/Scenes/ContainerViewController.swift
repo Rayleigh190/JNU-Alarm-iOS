@@ -64,11 +64,60 @@ class ContainerViewController: UIViewController {
         
         // 백그라운드 > 포그라운드 시 광고 로드
         NotificationCenter.default.addObserver(self, selector: #selector(loadAd), name: UIApplication.willEnterForegroundNotification, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        latestVersionCheck()
         subscribeDefaultTopic()
         unsubscribeLegacyTopic()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("ContainerViewController - viewWillApper()")
+    }
+    
+    @objc func willEnterForeground() {
+        if !NetworkMonitor.shared.isConnected {
+            Alert.showAlertAndExit(title: "네트워크 연결 오류", message: "인터넷에 연결되어 있지 않습니다. 앱을 종료합니다.")
+        }
+        
+        latestVersionCheck()
+    }
+    
+    func latestVersionCheck() {
+        VersionCheck.checkLatestVersion { latestVersion in
+            // completion 핸들러 내에서 최신 버전을 받아와 처리합니다.
+            if let latestVersion = latestVersion {
+                guard let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else{return}
+                print("HistoryViewController - latestVersionCheck(): 현재 버전: \(currentVersion)")
+                print("HistoryViewController - latestVersionCheck(): 최신 버전: \(latestVersion)")
+                let splitedCurrentVersion = currentVersion.split(separator: ".")
+                let splitedLatestVersion = latestVersion.split(separator: ".")
+//                let splitedCurrentVersion = ["1", "0", "2"] // 테스트용
+//                let splitedLatestVersion = ["1", "0", "3"] // 테스트용
+                print(splitedCurrentVersion)
+                print(splitedLatestVersion)
+                
+                if splitedLatestVersion[0] > splitedCurrentVersion[0] {
+                    // 강제 업데이트 대상 알림
+                    DispatchQueue.main.async {
+                        Alert.showForceUpdateAlert()
+                    }
+                } else if splitedLatestVersion[1] > splitedCurrentVersion[1] {
+                    // 강제 업데이트 대상 알림
+                    DispatchQueue.main.async {
+                        Alert.showForceUpdateAlert()
+                    }
+                } else if splitedLatestVersion[2] > splitedCurrentVersion[2] {
+                    // 권장 업데이트 대상 알림
+                    DispatchQueue.main.async {
+                        Alert.showRecommendUpdateAlert()
+                    }
+                }
+            } else {
+                print("최신 버전을 가져오는데 문제가 발생했습니다.")
+            }
+        }
+    }
 }
 
 extension ContainerViewController {

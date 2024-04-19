@@ -30,6 +30,40 @@ class Alert {
             vc.present(alert, animated: true, completion: nil)
         }
     }
+    
+    class func showForceUpdateAlert() {
+        let alert = UIAlertController(title: "필수 업데이트 알림", message: "더 나은 서비스를 위해 새 버전이 나왔습니다!\n업데이트를 해주세요.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+            guard let url = URL(string: "itms-apps://itunes.apple.com/app/apple-store/id6478808485") else { return }
+            if UIApplication.shared.canOpenURL(url) {
+               UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alert.addAction(okAction)
+        
+        if let vc = UIApplication.shared.windows.first?.visibleViewController {
+            vc.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    class func showRecommendUpdateAlert() {
+        let alert = UIAlertController(title: "권장 업데이트 알림", message: "안정적인 서비스 이용을 위해 업데이트를 권장합니다!", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+            guard let url = URL(string: "itms-apps://itunes.apple.com/app/apple-store/id6478808485") else { return }
+            if UIApplication.shared.canOpenURL(url) {
+               UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        let noAction = UIAlertAction(title: "다음에", style: .destructive) { _ in
+            // Todo: 하루동안 권장 업데이트 알림 안 보이게 하기
+        }
+        alert.addAction(okAction)
+        alert.addAction(noAction)
+        
+        if let vc = UIApplication.shared.windows.first?.visibleViewController {
+            vc.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 extension UIWindow {
