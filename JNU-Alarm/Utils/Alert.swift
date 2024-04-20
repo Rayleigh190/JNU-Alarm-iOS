@@ -55,7 +55,10 @@ class Alert {
             }
         }
         let noAction = UIAlertAction(title: "다음에", style: .destructive) { _ in
-            // Todo: 하루동안 권장 업데이트 알림 안 보이게 하기
+            // 오늘 날짜를 저장하여 하루동안 권장 업데이트 알림 안 보이게 합니다.
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "RUpdateAlertLastShownDate")
         }
         alert.addAction(okAction)
         alert.addAction(noAction)

@@ -109,15 +109,43 @@ class ContainerViewController: UIViewController {
                     }
                 } else if splitedLatestVersion[2] > splitedCurrentVersion[2] {
                     // 권장 업데이트 대상 알림
-                    DispatchQueue.main.async {
-                        Alert.showRecommendUpdateAlert()
+                    if let lastShownDateString = UserDefaults.standard.string(forKey: "RUpdateAlertLastShownDate") {
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        guard let lastShownDate = dateFormatter.date(from: lastShownDateString) else {
+                            print("날짜 데이터 가져오기 오류")
+                            return
+                        }
+                        print("지난 날짜 데이터 있음")
+                        let calendar = Calendar.current
+                        if !calendar.isDateInToday(lastShownDate) {
+                            // 오늘 권장 업데이트 '다음에'를 선택 안 한 경우, 알림을 표시합니다.
+                            DispatchQueue.main.async {
+                                Alert.showRecommendUpdateAlert()
+                            }
+                        }
+                        
+                    } else {
+                        print("지난 날짜 데이터 없음")
+                        DispatchQueue.main.async {
+                            Alert.showRecommendUpdateAlert()
+                        }
                     }
                 }
             } else {
-                print("최신 버전을 가져오는데 문제가 발생했습니다.")
+                print("최신 버전 정보를 가져오는데 문제가 발생했습니다.")
             }
         }
     }
+    
+    func getStringToDate(strDate:String) -> Date {
+        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = format
+        dateFormatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?
+
+        return dateFormatter.date(from: strDate)!
+    }
+
 }
 
 extension ContainerViewController {
