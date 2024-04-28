@@ -137,15 +137,6 @@ class ContainerViewController: UIViewController {
             }
         }
     }
-    
-    func getStringToDate(strDate:String) -> Date {
-        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = format
-        dateFormatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?
-
-        return dateFormatter.date(from: strDate)!
-    }
-
 }
 
 extension ContainerViewController {

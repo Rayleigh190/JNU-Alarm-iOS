@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseMessaging
+import SafariServices
 
 struct SettingsOption {
     let title: String
@@ -116,16 +117,25 @@ class SettingViewController: UIViewController {
             }),
         ]))
         
-        models.append(Section(title: "기타", options: [
+        models.append(Section(title: "", options: [
             .staticCell(model: SettingsOption(title: "사업단 알림", icon: UIImage(systemName: "building.2"), iconBackgroundColor: .systemOrange) {
                 let vc = BusinessViewController()
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }),
+        ]))
+        
+        models.append(Section(title: "기타", options: [
             .staticCell(model: SettingsOption(title: "문의 및 제안", icon: UIImage(systemName: "person.wave.2"), iconBackgroundColor: .systemPink) {
                 let vc = ContactViewController()
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)
+            }),
+            .staticCell(model: SettingsOption(title: "광고성 알림 요청", icon: UIImage(systemName: "gift.circle"), iconBackgroundColor: .purple.withAlphaComponent(0.5)) {
+                guard let url = URL(string: "https://wackitlab.notion.site/2800db7021a24e59adcd4f27f1673be4") else { return }
+                let safariVC = SFSafariViewController(url: url)
+                safariVC.modalPresentationStyle = .automatic
+                self.present(safariVC, animated: true)
             }),
             .staticCell(model: SettingsOption(title: "정보", icon: UIImage(systemName: "info.circle"), iconBackgroundColor: .systemBlue) {
                 let vc = InfoViewController()
