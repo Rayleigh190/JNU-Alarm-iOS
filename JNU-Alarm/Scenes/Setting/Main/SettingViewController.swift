@@ -131,11 +131,13 @@ class SettingViewController: UIViewController {
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }),
-            .staticCell(model: SettingsOption(title: "광고성 알림 요청", icon: UIImage(systemName: "gift.circle"), iconBackgroundColor: .purple.withAlphaComponent(0.5)) {
-                guard let url = URL(string: "https://wackitlab.notion.site/2800db7021a24e59adcd4f27f1673be4") else { return }
-                let safariVC = SFSafariViewController(url: url)
-                safariVC.modalPresentationStyle = .automatic
-                self.present(safariVC, animated: true)
+            .staticCell(model: SettingsOption(title: "푸시 알림 요청하기", icon: UIImage(systemName: "bubble.right.circle"), iconBackgroundColor: .purple.withAlphaComponent(0.5)) {
+                if let url = URL(string: "https://wackitlab.notion.site/2800db7021a24e59adcd4f27f1673be4") {
+                    UIApplication.shared.open(url)
+                }
+            }),
+            .staticCell(model: SettingsOption(title: "FAQ", icon: UIImage(systemName: "q.circle"), iconBackgroundColor: .systemBlue) {
+                self.showWebView(url: "https://wackitlab.notion.site/FAQ-b0f2438e25574315baa0962d1dd250e5")
             }),
             .staticCell(model: SettingsOption(title: "정보", icon: UIImage(systemName: "info.circle"), iconBackgroundColor: .systemBlue) {
                 let vc = InfoViewController()
@@ -152,6 +154,13 @@ class SettingViewController: UIViewController {
         #else
             print("release mode..")
         #endif
+    }
+    
+    func showWebView(url: String) {
+        guard let url = URL(string: url) else { return }
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.modalPresentationStyle = .automatic
+        self.present(safariVC, animated: true)
     }
 }
 
