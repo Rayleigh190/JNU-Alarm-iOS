@@ -63,6 +63,10 @@ class InfoViewController: UIViewController {
             .stringCell(model: SettingStringOption(title: "🏠 공식페이지", handler: {
                 self.showWebView(url: "https://wackitlab.notion.site/469d2c23433c48cca6965c3573058397")
             })),
+            .stringCell(model: SettingStringOption(title: "💸 후원하기", handler: {
+                self.showWebView(url: "https://wackitlab.notion.site/1c5a516070804fa5a0dd30d43a486979")
+            })),
+
         ]))
     }
     
