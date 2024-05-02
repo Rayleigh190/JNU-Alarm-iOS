@@ -66,6 +66,10 @@ class ContainerViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loadAd), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         latestVersionCheck()
+        
+        // 새로운 사용자들을 위해 앱 첫 실행시 처리합니다.
+        subscribeDefaultTopic()
+        unsubscribeLegacyTopic()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,6 +138,42 @@ class ContainerViewController: UIViewController {
                 print("최신 버전 정보를 가져오는데 문제가 발생했습니다.")
             }
             
+        }
+    }
+}
+
+extension ContainerViewController {
+    // 기본 topic 구독
+    func subscribeDefaultTopic() {
+        let defaultTopics = ["basic", "ios"]
+        for topic in defaultTopics {
+            if !UserDefaults.standard.bool(forKey: topic) {
+                Messaging.messaging().subscribe(toTopic: topic) { error in
+                    if let error = error {
+                        print("Error subscribe: \(error)")
+                    } else {
+                        print("Subscribed to basic topic")
+                        ConfigData.set(isOn: true, topic: topic)
+                    }
+                }
+            }
+        }
+    }
+    
+    // 서비스 종료 알림 토픽 구독 취소 처리
+    func unsubscribeLegacyTopic() {
+        let legacyTopic = ["emergency"]
+        for topic in legacyTopic {
+            if UserDefaults.standard.bool(forKey: topic) {
+                Messaging.messaging().unsubscribe(fromTopic: topic) { error in
+                    if let error = error {
+                        print("Error unsubscribe: \(error)")
+                    } else {
+                        print("Unsubscribed to \(topic) topic")
+                        ConfigData.set(isOn: false, topic: topic)
+                    }
+                }
+            }
         }
     }
 }

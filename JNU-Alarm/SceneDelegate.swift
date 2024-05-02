@@ -43,6 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to undo the changes made on entering the background.
         print("SceneDelegate - sceneWillEnterForeground()")
         
+        // 기존 업데이트 사용자들을 위해 앱 실행시 처리합니다.
         subscribeDefaultTopic()
         unsubscribeLegacyTopic()
     }
