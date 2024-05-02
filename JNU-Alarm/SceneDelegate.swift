@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseMessaging
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -40,6 +41,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        print("SceneDelegate - sceneWillEnterForeground()")
+        
+        subscribeDefaultTopic()
+        unsubscribeLegacyTopic()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -47,7 +52,42 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
+    
+    // 기본 topic 구독
+    func subscribeDefaultTopic() {
+        print("SceneDelegate - subscribeDefaultTopic()")
+        let defaultTopics = ["basic", "ios"]
+        for topic in defaultTopics {
+            if !UserDefaults.standard.bool(forKey: topic) {
+                Messaging.messaging().subscribe(toTopic: topic) { error in
+                    if let error = error {
+                        print("Error subscribe: \(error)")
+                      } else {
+                          print("Subscribed to basic topic")
+                          ConfigData.set(isOn: true, topic: topic)
+                      }
+                }
+            }
+        }
+    }
+    
+    // 서비스 종료 알림 토픽 구독 취소 처리
+    func unsubscribeLegacyTopic() {
+        print("SceneDelegate - unsubscribeLegacyTopic()")
+        let legacyTopic = ["emergency"]
+        for topic in legacyTopic {
+            if UserDefaults.standard.bool(forKey: topic) {
+                Messaging.messaging().unsubscribe(fromTopic: topic) { error in
+                    if let error = error {
+                        print("Error unsubscribe: \(error)")
+                      } else {
+                          print("Unsubscribed to \(topic) topic")
+                          ConfigData.set(isOn: false, topic: topic)
+                      }
+                }
+            }
+            
+        }
+    }
 }
 

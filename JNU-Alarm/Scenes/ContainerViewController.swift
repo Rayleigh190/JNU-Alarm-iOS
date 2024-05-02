@@ -66,8 +66,6 @@ class ContainerViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loadAd), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         latestVersionCheck()
-        subscribeDefaultTopic()
-        unsubscribeLegacyTopic()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,8 +86,8 @@ class ContainerViewController: UIViewController {
             // completion 핸들러 내에서 최신 버전을 받아와 처리합니다.
             if let latestVersion = latestVersion {
                 guard let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else{return}
-                print("HistoryViewController - latestVersionCheck(): 현재 버전: \(currentVersion)")
-                print("HistoryViewController - latestVersionCheck(): 최신 버전: \(latestVersion)")
+                print("ContainerViewController - latestVersionCheck(): 현재 버전: \(currentVersion)")
+                print("ContainerViewController - latestVersionCheck(): 최신 버전: \(latestVersion)")
                 let splitedCurrentVersion = currentVersion.split(separator: ".")
                 let splitedLatestVersion = latestVersion.split(separator: ".")
 //                let splitedCurrentVersion = ["1", "0", "2"] // 테스트용
@@ -134,42 +132,6 @@ class ContainerViewController: UIViewController {
                 }
             } else {
                 print("최신 버전 정보를 가져오는데 문제가 발생했습니다.")
-            }
-        }
-    }
-}
-
-extension ContainerViewController {
-    // 기본 topic 구독
-    func subscribeDefaultTopic() {
-        let defaultTopics = ["basic", "ios"]
-        for topic in defaultTopics {
-            if !UserDefaults.standard.bool(forKey: topic) {
-                Messaging.messaging().subscribe(toTopic: topic) { error in
-                    if let error = error {
-                        print("Error subscribe: \(error)")
-                      } else {
-                          print("Subscribed to basic topic")
-                          ConfigData.set(isOn: true, topic: topic)
-                      }
-                }
-            }
-        }
-    }
-    
-    // 서비스 종료 알림 토픽 구독 취소 처리
-    func unsubscribeLegacyTopic() {
-        let legacyTopic = ["emergency"]
-        for topic in legacyTopic {
-            if UserDefaults.standard.bool(forKey: topic) {
-                Messaging.messaging().unsubscribe(fromTopic: topic) { error in
-                    if let error = error {
-                        print("Error unsubscribe: \(error)")
-                      } else {
-                          print("Unsubscribed to \(topic) topic")
-                          ConfigData.set(isOn: false, topic: topic)
-                      }
-                }
             }
             
         }

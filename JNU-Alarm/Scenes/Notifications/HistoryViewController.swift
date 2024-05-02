@@ -94,7 +94,7 @@ extension HistoryViewController {
     }
     
     @objc func setNotificationData() {
-        
+        print("HistoryViewController - setNotificationData()")
         self.models = [NotificationData]()
         
         fetchNotifications { [weak self] notifications in
