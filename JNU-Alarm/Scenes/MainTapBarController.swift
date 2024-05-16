@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class MainTapBarController: UITabBarController {
     
@@ -43,6 +44,13 @@ class MainTapBarController: UITabBarController {
         if let userInfo = notification.userInfo {
             if let index = userInfo["index"] as? Int {
                 self.selectedIndex = index
+            }
+            
+            if let link = userInfo["link"] as? String {
+                guard let url = URL(string: link) else { return }
+                let safariVC = SFSafariViewController(url: url)
+                safariVC.modalPresentationStyle = .automatic
+                present(safariVC, animated: true)
             }
         }
     }

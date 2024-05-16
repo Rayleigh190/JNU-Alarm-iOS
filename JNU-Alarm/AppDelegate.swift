@@ -84,8 +84,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-        // 푸시 알림 클릭시 알림 내역 탭 뛰우기
-        NotificationCenter.default.post(name: Notification.Name("showHistoryTap"), object: nil, userInfo: ["index":0])
+        let userInfo = response.notification.request.content.userInfo as NSDictionary
+        guard let receivedLink = userInfo.value(forKey: "link") as? String else {
+            return
+        }
+        // 푸시 알림 클릭시 알림 내역 탭 뛰우고 웹뷰로 공지사항 열기
+        NotificationCenter.default.post(name: Notification.Name("showHistoryTap"), object: nil, userInfo: ["index":0, "link":receivedLink])
     }
 }
 
