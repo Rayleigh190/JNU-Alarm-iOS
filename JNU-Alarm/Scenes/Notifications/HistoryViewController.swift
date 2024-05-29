@@ -95,13 +95,13 @@ extension HistoryViewController {
     
     @objc func setNotificationData() {
         print("HistoryViewController - setNotificationData()")
-        self.models = [NotificationData]()
         
         fetchNotifications { [weak self] notifications in
             guard let self = self else { return }
             
             if let notifications = notifications {
 //                print("패치 완료 : \(notifications)")
+                self.models = [NotificationData]()
                 for notification in notifications {
                     self.models.append(NotificationData(title: notification.title, body: notification.body, link: notification.link, created_at: notification.created_at))
                 }
