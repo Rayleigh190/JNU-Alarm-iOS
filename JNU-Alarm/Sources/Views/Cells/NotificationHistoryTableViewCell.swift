@@ -1,5 +1,5 @@
 //
-//  HistoryTableViewCell.swift
+//  NotificationHistoryTableViewCell.swift
 //  JNU-Alarm
 //
 //  Created by 우진 on 2/21/24.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class HistoryTableViewCell: UITableViewCell {
-    static let indentifier = "HistoryTableViewCell"
+class NotificationHistoryTableViewCell: UITableViewCell {
+    static let indentifier = "NotificationHistoryTableViewCell"
     
     private let labelStackView: UIStackView = {
         let stackView = UIStackView()
