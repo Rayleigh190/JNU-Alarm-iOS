@@ -53,6 +53,9 @@ class BusinessViewController: UIViewController {
             .switchCell(model: SettingsSwitchOption(title: "인공지능혁신융합대학사업단", icon: UIImage(systemName: "building.2"), iconBackgroundColor: .systemOrange, handler: {
                 // 핸들러 구현
             }, isOn: ConfigData.get(topic: "aicoss"), topic: "aicoss")),
+            .switchCell(model: SettingsSwitchOption(title: "차세대통신혁신융합대학사업단", icon: UIImage(systemName: "building.2"), iconBackgroundColor: .systemOrange, handler: {
+                // 핸들러 구현
+            }, isOn: ConfigData.get(topic: "nccoss"), topic: "nccoss")),
         ]))
     }
 }
