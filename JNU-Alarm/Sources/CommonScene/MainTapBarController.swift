@@ -11,7 +11,7 @@ import SafariServices
 class MainTapBarController: UITabBarController {
     
     private lazy var historyViewController: UIViewController = {
-       let viewController = UINavigationController(rootViewController: HistoryViewController())
+       let viewController = UINavigationController(rootViewController: NotificationHistoryViewController())
        let tabBarItem = UITabBarItem(title: "알림", image: UIImage(systemName: "list.bullet"), tag: 0)
        viewController.tabBarItem = tabBarItem
 
