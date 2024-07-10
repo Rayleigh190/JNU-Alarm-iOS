@@ -73,8 +73,8 @@ class DepartmentViewController: UIViewController {
                 // 핸들러 구현
             }, isOn: ConfigData.get(topic: "mech"), topic: "mech")),
             .switchCell(model: SettingsSwitchOption(title: "산업공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
-                Alert.showAlert(title: "안내", message: "서비스 준비중입니다.")
-            }, isOn: ConfigData.get(topic: "ie"), topic: "ie", isEnabled: false)),
+                // 핸들러 구현
+            }, isOn: ConfigData.get(topic: "ie"), topic: "ie")),
             .switchCell(model: SettingsSwitchOption(title: "생물공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: ConfigData.get(topic: "bte"), topic: "bte")),
@@ -90,6 +90,9 @@ class DepartmentViewController: UIViewController {
             .switchCell(model: SettingsSwitchOption(title: "전기공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: ConfigData.get(topic: "elec"), topic: "elec")),
+            .switchCell(model: SettingsSwitchOption(title: "전자컴퓨터공학부", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
+                // 핸들러 구현
+            }, isOn: ConfigData.get(topic: "eceng"), topic: "eceng")),
             .switchCell(model: SettingsSwitchOption(title: "전자공학과", icon: UIImage(systemName: "books.vertical"), iconBackgroundColor: .systemGreen, handler: {
                 // 핸들러 구현
             }, isOn: ConfigData.get(topic: "ee"), topic: "ee")),
