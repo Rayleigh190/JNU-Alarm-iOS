@@ -1,0 +1,21 @@
+//
+//  DashboardModel.swift
+//  JNU-Alarm
+//
+//  Created by 우진 on 7/11/24.
+//
+
+struct ShortcutResponseData: Codable {
+    let success: Bool
+    let response: [ShortcutData]
+    let error: String?
+}
+
+struct ShortcutData: Codable {
+    let name: String
+    let ios_image_name: String
+    let color_code: String
+    let link: String
+    let is_webview: Bool
+    let is_modal: Bool
+}

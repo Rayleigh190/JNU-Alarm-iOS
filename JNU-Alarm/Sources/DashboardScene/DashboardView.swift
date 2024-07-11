@@ -142,7 +142,7 @@ class DashboardView: UIView {
         return label
     }()
     
-    lazy var academicCalendarShortcutButton = ShortcutButton(name: "학사 일정", imageNmae: "graduationcap.fill", imageColor: .systemGreen, link: "https://www.jnu.ac.kr/WebApp/web/HOM/TOP/Schedule300.aspx")
+    lazy var academicCalendarShortcutButton = ShortcutButton(name: "학사 일정", imageNmae: "calendar", imageColor: .systemGreen, link: "https://www.jnu.ac.kr/WebApp/web/HOM/TOP/Schedule300.aspx")
     
     lazy var schoolMenuShortcutButton = ShortcutButton(name: "학식 메뉴", imageNmae: "fork.knife", imageColor: .systemOrange, link: "https://today.jnu.ac.kr/Program/MealPlan.aspx")
    

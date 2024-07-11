@@ -7,15 +7,19 @@
 
 import UIKit
 import SafariServices
+import Combine
 
 class DashboardViewController: UIViewController {
     var dashboardView: DashboardView!
+    let dashboardViewModel = DashboardViewModel()
+    var disposalbleBag = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationController()
         setupAddTarget()
-        addShortcutButton() // 테스트용 추가
+        setBindings()
+        self.dashboardViewModel.getShortcutButtonData()
     }
     
     override func loadView() {
@@ -69,24 +73,28 @@ extension DashboardViewController {
         safariVC.modalPresentationStyle = .automatic
         present(safariVC, animated: true)
     }
+}
+
+extension DashboardViewController {
+    fileprivate func setBindings() {
+        print("DashboardViewController - setBindings()")
+        self.dashboardViewModel.$shortcutButtonList.sink { (shortcutButtonList: [ShortcutButton]) in
+            self.setShortcutButton(shortcutButtonList: shortcutButtonList)
+        }.store(in: &disposalbleBag)
+    }
     
-    func addShortcutButton() {
-        var shortcutButtons = [
-            ShortcutButton(name: "학생회", imageNmae: "person.3.fill", imageColor: UIColor(hexCode: "0632A0"), link: "https://jnuheyday.imweb.me/", isModal: false),
-            ShortcutButton(name: "전대신문", imageNmae: "newspaper.fill", imageColor: UIColor(hexCode: "208C3B"), link: "https://press.cnumedia.jnu.ac.kr/", isModal: false),
-        ]
-        
+    func setShortcutButton(shortcutButtonList: [ShortcutButton]) {
+        var shortcutButtons: [ShortcutButton] = shortcutButtonList
         while shortcutButtons.count%4 != 0 {
             shortcutButtons.append(ShortcutButton(name: "", imageNmae: "", imageColor: .black, link: ""))
         }
         shortcutButtons.forEach {
-            $0.addTarget(self, action: #selector(openInSafariAction), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(self.openInSafariAction), for: .touchUpInside)
         }
         for i in stride(from: 0, to: shortcutButtons.count, by: 4) {
-            dashboardView.shortcutButtonStackView.addArrangedSubview(
+            self.dashboardView.shortcutButtonStackView.addArrangedSubview(
                 ShortcutRowStackView([shortcutButtons[i], shortcutButtons[i+1], shortcutButtons[i+2], shortcutButtons[i+3]])
             )
         }
-        
     }
 }
