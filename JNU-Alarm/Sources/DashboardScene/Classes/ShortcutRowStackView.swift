@@ -1,5 +1,5 @@
 //
-//  ShortcutsRowStackView.swift
+//  ShortcutRowStackView.swift
 //  JNU-Alarm
 //
 //  Created by 우진 on 7/10/24.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ShortcutsRowStackView: UIStackView {
-    init(_ buttons: [ShortcutsButton]) {
+class ShortcutRowStackView: UIStackView {
+    init(_ buttons: [ShortcutButton]) {
         super.init(frame: .zero)
         self.distribution = .fillEqually
         buttons.forEach {

@@ -37,6 +37,7 @@ class MainTapBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewControllers = [historyViewController, dashboardViewController, settingViewController]
+        self.selectedIndex = 1
         setFirst()
         // 푸시 알림 클릭시 알림 내역 탭 뛰우기
         NotificationCenter.default.addObserver(self, selector: #selector(showHistoryTap(_:)), name: NSNotification.Name("showHistoryTap"), object: nil)

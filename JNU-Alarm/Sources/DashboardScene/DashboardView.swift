@@ -134,46 +134,48 @@ class DashboardView: UIView {
     }()
     // 날씨 End
     
-    private lazy var shortcutsLabel: UILabel = {
+    private lazy var shortcutLabel: UILabel = {
         let label = UILabel()
-        label.text = "   바로가기"
+        label.text = "  바로가기"
         label.font = UIFont.boldSystemFont(ofSize: 24)
         
         return label
     }()
     
-    lazy var academicCalendarShortcutsButton = ShortcutsButton(name: "학사 일정", imageNmae: "graduationcap.fill", imageColor: .systemGreen, link: nil)
+    lazy var academicCalendarShortcutButton = ShortcutButton(name: "학사 일정", imageNmae: "graduationcap.fill", imageColor: .systemGreen, link: "https://www.jnu.ac.kr/WebApp/web/HOM/TOP/Schedule300.aspx")
     
-    lazy var schoolMenuShortcutsButton = ShortcutsButton(name: "학식 메뉴", imageNmae: "fork.knife", imageColor: .systemOrange, link: nil)
+    lazy var schoolMenuShortcutButton = ShortcutButton(name: "학식 메뉴", imageNmae: "fork.knife", imageColor: .systemOrange, link: "https://today.jnu.ac.kr/Program/MealPlan.aspx")
    
-    lazy var dormitoryMenuShortcutsButton = ShortcutsButton(name: "긱식 메뉴", imageNmae: "fork.knife", imageColor: .systemOrange, link: nil)
+    lazy var dormitoryMenuShortcutButton = ShortcutButton(name: "긱식 메뉴", imageNmae: "fork.knife", imageColor: .systemOrange, link: nil)
     
-    lazy var restaurantRecommendationsButton = ShortcutsButton(name: "식당 추천", imageNmae: "takeoutbag.and.cup.and.straw.fill", imageColor: .systemIndigo, link: nil)
+    lazy var restaurantRecommendationsButton = ShortcutButton(name: "식당 추천", imageNmae: "takeoutbag.and.cup.and.straw.fill", imageColor: .systemIndigo, link: nil)
     
-    private lazy var shortcutsButtonFirstRow = ShortcutsRowStackView([
-        academicCalendarShortcutsButton,
-        schoolMenuShortcutsButton,
-        dormitoryMenuShortcutsButton,
+    private lazy var shortcutButtonFirstRow = ShortcutRowStackView([
+        academicCalendarShortcutButton,
+        schoolMenuShortcutButton,
+        dormitoryMenuShortcutButton,
         restaurantRecommendationsButton,
     ])
     
-    private lazy var shortcutsButtonStackView: UIStackView = {
+    lazy var shortcutButtonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        [shortcutsButtonFirstRow].forEach {
+        stackView.spacing = 12
+        [shortcutButtonFirstRow].forEach {
             stackView.addArrangedSubview($0)
         }
         return stackView
     }()
     
-    private lazy var shortcutsStackView: UIStackView = {
+    private lazy var shortcutStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
         stackView.axis = .vertical
         stackView.spacing = 12
 //        stackView.backgroundColor = .lightGray
-        [shortcutsLabel, shortcutsButtonStackView].forEach {
+        [shortcutLabel, shortcutButtonStackView].forEach {
             stackView.addArrangedSubview($0)
         }
         return stackView
@@ -183,7 +185,7 @@ class DashboardView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 16
-        [adImageView, shortcutsStackView].forEach {
+        [adImageView, shortcutStackView].forEach {
             stackView.addArrangedSubview($0)
         }
         return stackView
