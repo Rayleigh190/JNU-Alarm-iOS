@@ -25,10 +25,18 @@ class MainTapBarController: UITabBarController {
 
        return viewController
    }()
+    
+    private lazy var dashboardViewController: UIViewController = {
+        let viewController = UINavigationController(rootViewController: DashboardViewController())
+        let tabBarItem = UITabBarItem(title: "대시보드", image: UIImage(systemName: "square.on.square"), tag: 2)
+        viewController.tabBarItem = tabBarItem
+
+        return viewController
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers = [historyViewController, settingViewController]
+        viewControllers = [historyViewController, dashboardViewController, settingViewController]
         setFirst()
         // 푸시 알림 클릭시 알림 내역 탭 뛰우기
         NotificationCenter.default.addObserver(self, selector: #selector(showHistoryTap(_:)), name: NSNotification.Name("showHistoryTap"), object: nil)
