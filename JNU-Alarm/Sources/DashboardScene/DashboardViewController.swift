@@ -19,13 +19,17 @@ class DashboardViewController: UIViewController {
         setupNavigationController()
         setupAddTarget()
         setBindings()
-        self.dashboardViewModel.getShortcutButtonData()
     }
     
     override func loadView() {
         super.loadView()
         dashboardView = DashboardView(frame: self.view.frame)
         self.view = dashboardView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.dashboardViewModel.getShortcutButtonData()
     }
 }
 
@@ -91,6 +95,7 @@ extension DashboardViewController {
         shortcutButtons.forEach {
             $0.addTarget(self, action: #selector(self.openInSafariAction), for: .touchUpInside)
         }
+        self.dashboardView.shortcutButtonStackView.removeAllArrangedSubviewsExceptFirst()
         for i in stride(from: 0, to: shortcutButtons.count, by: 4) {
             self.dashboardView.shortcutButtonStackView.addArrangedSubview(
                 ShortcutRowStackView([shortcutButtons[i], shortcutButtons[i+1], shortcutButtons[i+2], shortcutButtons[i+3]])
