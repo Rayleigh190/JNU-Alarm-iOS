@@ -12,6 +12,7 @@ class DashboardViewModel: ObservableObject {
     
     @Published var shortcutButtonList = [ShortcutButton]()
     @Published var bannerAdData: BannerAdData?
+    @Published var restaurantData: RestaurantData?
     
     init() {
         print("DashboardViewModel - init()")
@@ -87,6 +88,42 @@ class DashboardViewModel: ObservableObject {
                 completion(nil)
             } else if let data = data {
                 if let responseData = try? JSONDecoder().decode(BannerAdResponseData.self, from: data) {
+                    completion(responseData.response)
+                } else {
+                    print("Error: Unable to get response data")
+                    completion(nil)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func getRestaurantData() {
+        print("DashboardViewModel - getRestaurantData()")
+        fetchRestaurant { restaurant in
+            if let restaurant = restaurant {
+                self.restaurantData = restaurant
+            } else {
+                print("식당 데이터 가져오기 실패")
+            }
+        }
+    }
+    
+    func fetchRestaurant(completion: @escaping (RestaurantData?) -> Void) {
+        let session = URLSession.shared
+        
+        let url = URL(string: Bundle.main.getSecret(name: "RESTAURANT_RECOMMENDATION_API_URL"))!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                completion(nil)
+            } else if let data = data {
+                if let responseData = try? JSONDecoder().decode(RestaurantRecommendationResponseData.self, from: data) {
                     completion(responseData.response)
                 } else {
                     print("Error: Unable to get response data")

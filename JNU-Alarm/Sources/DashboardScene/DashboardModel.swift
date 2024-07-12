@@ -30,3 +30,15 @@ struct BannerAdData: Codable {
     let image_url: String
     let direction_url: String
 }
+
+struct RestaurantRecommendationResponseData: Codable {
+    let success: Bool
+    let response: RestaurantData
+    let error: String?
+}
+
+struct RestaurantData: Codable {
+    let name: String
+    let type: String
+    let naver_map_url: String
+}

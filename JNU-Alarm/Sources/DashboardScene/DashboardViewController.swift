@@ -15,6 +15,7 @@ class DashboardViewController: UIViewController {
     let dashboardViewModel = DashboardViewModel()
     var disposalbleBag = Set<AnyCancellable>()
     var bannerAdDirectionURL: String?
+    var restaurantData: RestaurantData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,8 @@ extension DashboardViewController {
         let menu = UIMenu(title: "생활관", children: [action1, action2, action3])
         dashboardView.dormitoryMenuShortcutButton.menu = menu
         dashboardView.dormitoryMenuShortcutButton.showsMenuAsPrimaryAction = true
+        // 식당 추천
+        dashboardView.restaurantRecommendationsButton.addTarget(self, action: #selector(tappedRestaurantRecommendationsButton), for: .touchUpInside)
     }
     
     @objc func openInSafariAction(sender: ShortcutButton) {
@@ -85,6 +88,10 @@ extension DashboardViewController {
         guard let unwrappedBannerAdDirectionURL = bannerAdDirectionURL else { return }
         openInSafari(link: unwrappedBannerAdDirectionURL)
     }
+    
+    @objc func tappedRestaurantRecommendationsButton(sender: UIButton) {
+        self.dashboardViewModel.getRestaurantData()
+    }
 }
 
 extension DashboardViewController {
@@ -97,6 +104,11 @@ extension DashboardViewController {
         self.dashboardViewModel.$bannerAdData.sink { bannerAdData in
             guard let unwrappedBannerAdData = bannerAdData else { return }
             self.setBannerAd(bannerAdData: unwrappedBannerAdData)
+        }.store(in: &disposalbleBag)
+        
+        self.dashboardViewModel.$restaurantData.sink { restaurantData in
+            guard let unwrappedRestaurantData = restaurantData else { return }
+            self.showRestaurant(restaurantData: unwrappedRestaurantData)
         }.store(in: &disposalbleBag)
     }
     
@@ -123,6 +135,27 @@ extension DashboardViewController {
             self.dashboardView.adImageView.backgroundColor = .systemBackground
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tappedBannerAd))
             self.dashboardView.adImageView.addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func showRestaurant(restaurantData: RestaurantData) {
+        let message = "\(restaurantData.name)\n(\(restaurantData.type))"
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "음식점 랜덤 추천", message: message, preferredStyle: .alert)
+            let ok = UIAlertAction(title: "지도 이동", style: .default) { _ in
+                if let url = URL(string: restaurantData.naver_map_url) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                }
+            }
+            let cancle = UIAlertAction(title: "닫기", style: .destructive, handler: nil)
+            alert.addAction(ok)
+            alert.addAction(cancle)
+            
+            if let vc = UIApplication.shared.windows.first?.visibleViewController {
+                vc.present(alert, animated: true, completion: nil)
+            }
         }
     }
 }
