@@ -13,10 +13,11 @@ class DashboardView: UIView {
         return scrollView
     }()
     
-    private lazy var adImageView: UIImageView = {
+    lazy var adImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .gray
+        imageView.backgroundColor = .lightGray
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -184,7 +185,7 @@ class DashboardView: UIView {
     lazy var backgroundStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 16
+        stackView.spacing = 10
         [adImageView, shortcutStackView].forEach {
             stackView.addArrangedSubview($0)
         }

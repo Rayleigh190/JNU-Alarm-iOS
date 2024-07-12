@@ -8,11 +8,13 @@
 import UIKit
 import SafariServices
 import Combine
+import Kingfisher
 
 class DashboardViewController: UIViewController {
     var dashboardView: DashboardView!
     let dashboardViewModel = DashboardViewModel()
     var disposalbleBag = Set<AnyCancellable>()
+    var bannerAdDirectionURL: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,7 @@ class DashboardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.dashboardViewModel.getShortcutButtonData()
+        self.dashboardViewModel.getBannerAdData()
     }
 }
 
@@ -77,6 +80,11 @@ extension DashboardViewController {
         safariVC.modalPresentationStyle = .automatic
         present(safariVC, animated: true)
     }
+    
+    @objc func tappedBannerAd(sender: UIImageView) {
+        guard let unwrappedBannerAdDirectionURL = bannerAdDirectionURL else { return }
+        openInSafari(link: unwrappedBannerAdDirectionURL)
+    }
 }
 
 extension DashboardViewController {
@@ -84,6 +92,11 @@ extension DashboardViewController {
         print("DashboardViewController - setBindings()")
         self.dashboardViewModel.$shortcutButtonList.sink { (shortcutButtonList: [ShortcutButton]) in
             self.setShortcutButton(shortcutButtonList: shortcutButtonList)
+        }.store(in: &disposalbleBag)
+        
+        self.dashboardViewModel.$bannerAdData.sink { bannerAdData in
+            guard let unwrappedBannerAdData = bannerAdData else { return }
+            self.setBannerAd(bannerAdData: unwrappedBannerAdData)
         }.store(in: &disposalbleBag)
     }
     
@@ -100,6 +113,16 @@ extension DashboardViewController {
             self.dashboardView.shortcutButtonStackView.addArrangedSubview(
                 ShortcutRowStackView([shortcutButtons[i], shortcutButtons[i+1], shortcutButtons[i+2], shortcutButtons[i+3]])
             )
+        }
+    }
+    
+    func setBannerAd(bannerAdData: BannerAdData) {
+        self.bannerAdDirectionURL = bannerAdData.direction_url
+        DispatchQueue.main.async {
+            self.dashboardView.adImageView.kf.setImage(with: URL(string: bannerAdData.image_url))
+            self.dashboardView.adImageView.backgroundColor = .systemBackground
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tappedBannerAd))
+            self.dashboardView.adImageView.addGestureRecognizer(tapGesture)
         }
     }
 }

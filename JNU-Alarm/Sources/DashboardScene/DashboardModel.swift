@@ -19,3 +19,14 @@ struct ShortcutData: Codable {
     let is_webview: Bool
     let is_modal: Bool
 }
+
+struct BannerAdResponseData: Codable {
+    let success: Bool
+    let response: BannerAdData
+    let error: String?
+}
+
+struct BannerAdData: Codable {
+    let image_url: String
+    let direction_url: String
+}
