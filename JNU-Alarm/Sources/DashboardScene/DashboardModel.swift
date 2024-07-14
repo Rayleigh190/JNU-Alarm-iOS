@@ -29,6 +29,7 @@ struct BannerAdResponseData: Codable {
 struct BannerAdData: Codable {
     let image_url: String
     let direction_url: String
+    let is_external_browser: Bool
 }
 
 struct RestaurantRecommendationResponseData: Codable {

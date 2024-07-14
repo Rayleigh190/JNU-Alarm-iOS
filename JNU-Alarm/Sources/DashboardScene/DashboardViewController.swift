@@ -15,7 +15,7 @@ class DashboardViewController: UIViewController {
     var dashboardView: DashboardView!
     let dashboardViewModel = DashboardViewModel()
     var disposalbleBag = Set<AnyCancellable>()
-    var bannerAdDirectionURL: String?
+    var bannerAdData: BannerAdData?
     var restaurantData: RestaurantData?
     
     override func viewDidLoad() {
@@ -85,9 +85,21 @@ extension DashboardViewController {
         present(safariVC, animated: true)
     }
     
+    func openInExBrowser(link: String) {
+        if let url = URL(string: link) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
     @objc func tappedBannerAd(sender: UIImageView) {
-        guard let unwrappedBannerAdDirectionURL = bannerAdDirectionURL else { return }
-        openInSafari(link: unwrappedBannerAdDirectionURL)
+        guard let unwrappedBannerAdData = bannerAdData else { return }
+        if unwrappedBannerAdData.is_external_browser {
+            openInExBrowser(link: unwrappedBannerAdData.direction_url)
+        } else {
+            openInSafari(link: unwrappedBannerAdData.direction_url)
+        }
     }
     
     @objc func tappedRestaurantRecommendationsButton(sender: UIButton) {
@@ -139,7 +151,7 @@ extension DashboardViewController {
     }
     
     func setBannerAd(bannerAdData: BannerAdData) {
-        self.bannerAdDirectionURL = bannerAdData.direction_url
+        self.bannerAdData = bannerAdData
         DispatchQueue.main.async {
             self.dashboardView.adImageView.kf.setImage(with: URL(string: bannerAdData.image_url))
             self.dashboardView.adImageView.backgroundColor = .systemBackground
@@ -153,11 +165,7 @@ extension DashboardViewController {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "음식점 랜덤 추천", message: message, preferredStyle: .alert)
             let ok = UIAlertAction(title: "지도 이동", style: .default) { _ in
-                if let url = URL(string: restaurantData.naver_map_url) {
-                    if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    }
-                }
+                self.openInExBrowser(link: restaurantData.naver_map_url)
             }
             let cancle = UIAlertAction(title: "닫기", style: .destructive, handler: nil)
             alert.addAction(ok)
