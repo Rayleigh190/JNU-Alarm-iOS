@@ -9,6 +9,7 @@ import UIKit
 import SafariServices
 import Combine
 import Kingfisher
+import Toast
 
 class DashboardViewController: UIViewController {
     var dashboardView: DashboardView!
@@ -90,6 +91,7 @@ extension DashboardViewController {
     }
     
     @objc func tappedRestaurantRecommendationsButton(sender: UIButton) {
+        self.view.makeToastActivity(.center)
         self.dashboardViewModel.getRestaurantData()
     }
 }
@@ -106,8 +108,16 @@ extension DashboardViewController {
             self.setBannerAd(bannerAdData: unwrappedBannerAdData)
         }.store(in: &disposalbleBag)
         
-        self.dashboardViewModel.$restaurantData.sink { restaurantData in
-            guard let unwrappedRestaurantData = restaurantData else { return }
+        self.dashboardViewModel.$restaurantData.dropFirst().sink { restaurantData in
+            DispatchQueue.main.async {
+                self.view.hideToastActivity()
+            }
+            guard let unwrappedRestaurantData = restaurantData else {
+                DispatchQueue.main.async {
+                    self.view.makeToast("😵 추천에 실패했어요", duration: 2.0)
+                }
+                return
+            }
             self.showRestaurant(restaurantData: unwrappedRestaurantData)
         }.store(in: &disposalbleBag)
     }

@@ -105,6 +105,7 @@ class DashboardViewModel: ObservableObject {
                 self.restaurantData = restaurant
             } else {
                 print("식당 데이터 가져오기 실패")
+                self.restaurantData = nil
             }
         }
     }
