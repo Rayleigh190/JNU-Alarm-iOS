@@ -29,8 +29,11 @@ class VersionCheck {
                 do {
                     let responseJSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                     
-                    if let responseData = responseJSON?["response"] as? [String: Any], let iosLatestVersion = responseData["ios_latest_version"] as? String {
-                        completion(iosLatestVersion) // iOS 최신 버전 전달
+                    if let responseData = responseJSON?["response"] as? [String: Any], 
+                        let iosLatestVersion = responseData["ios_latest_version"] as? String,
+                        let isAvailable = responseData["is_available"] as? Bool {
+                        if isAvailable { completion(iosLatestVersion) }
+                        else { completion(nil) }
                     } else {
                         print("Error: Unable to parse response data")
                         completion(nil)
