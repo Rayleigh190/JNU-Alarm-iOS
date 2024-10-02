@@ -115,6 +115,11 @@ class SettingViewController: UIViewController {
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }),
+            .staticCell(model: SettingsOption(title: "전문대학원 알림", icon: UIImage(systemName: "wand.and.stars"), iconBackgroundColor: .systemGreen) {
+                let vc = SGSchoolViewController()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }),
         ]))
         
         models.append(Section(title: "", options: [
