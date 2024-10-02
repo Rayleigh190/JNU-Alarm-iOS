@@ -131,7 +131,7 @@ class SettingViewController: UIViewController {
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }),
-            .staticCell(model: SettingsOption(title: "푸시 알림 요청하기", icon: UIImage(systemName: "bubble.right.circle"), iconBackgroundColor: .purple.withAlphaComponent(0.5)) {
+            .staticCell(model: SettingsOption(title: "광고 및 알림 요청", icon: UIImage(systemName: "bubble.right.circle"), iconBackgroundColor: .purple.withAlphaComponent(0.5)) {
                 if let url = URL(string: "https://wackitlab.notion.site/2800db7021a24e59adcd4f27f1673be4") {
                     UIApplication.shared.open(url)
                 }
