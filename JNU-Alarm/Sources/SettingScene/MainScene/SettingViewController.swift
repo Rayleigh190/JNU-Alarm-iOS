@@ -131,10 +131,13 @@ class SettingViewController: UIViewController {
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }),
-            .staticCell(model: SettingsOption(title: "광고 및 알림 요청", icon: UIImage(systemName: "bubble.right.circle"), iconBackgroundColor: .purple.withAlphaComponent(0.5)) {
+            .staticCell(model: SettingsOption(title: "광고 및 알림 요청", icon: UIImage(systemName: "bubble.right"), iconBackgroundColor: .purple.withAlphaComponent(0.5)) {
                 if let url = URL(string: "https://wackitlab.notion.site/2800db7021a24e59adcd4f27f1673be4") {
                     UIApplication.shared.open(url)
                 }
+            }),
+            .staticCell(model: SettingsOption(title: "후원하기", icon: UIImage(systemName: "gift"), iconBackgroundColor: .systemYellow) {
+                self.showWebView(url: "https://wackitlab.notion.site/1c5a516070804fa5a0dd30d43a486979")
             }),
             .staticCell(model: SettingsOption(title: "FAQ", icon: UIImage(systemName: "q.circle"), iconBackgroundColor: .systemBlue) {
                 self.showWebView(url: "https://wackitlab.notion.site/FAQ-b0f2438e25574315baa0962d1dd250e5")
